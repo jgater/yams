@@ -1,0 +1,31 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Yams</title>
+	<!--styles -->
+	<!--<link href="/css/bootstrap.css" rel="stylesheet">-->
+	<link href="/css/yams.css" rel="stylesheet">
+	<!--scripts-->
+	<script type='text/javascript' src='/js/lib/knockout-2.1.0beta.js'></script>
+</head>
+<body>
+
+<h1>This is my Main Page</h1>
+
+<!-- This is a *view* - HTML markup that defines the appearance of your UI -->
+
+<p>First name: <strong data-bind="text: firstName"></strong></p>
+<p>Last name: <strong data-bind="text: lastName"></strong></p>
+
+<p>First name: <input data-bind="value: firstName" /></p>
+<p>Last name: <input data-bind="value: lastName" /></p>
+
+<p>Full name: <strong data-bind="text: fullName"></strong></p>
+
+<button data-bind="click: capitalizeLastName">Go caps</button>
+
+
+
+<script type='text/javascript' src='/js/appviewmodel.js'></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "yams",
+  "version": "0.0.1",
+  "author": "myriam.trilles@gmail.com",
+  "description": "an online version of the yams dice game",
+  "dependencies" : {
+    "express": "2.5.x"
+  }
+}
