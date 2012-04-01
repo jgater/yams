@@ -11,6 +11,15 @@ function AppViewModel() {
         var currentVal = this.lastName();        // Read the current value
         this.lastName(currentVal.toUpperCase()); // Write back a modified value
     };    
+
+	//My dice run
+	this.rollSingleDice = ko.computed(function(){
+    	return Math.floor(Math.random()*6+1);
+	});
+	//printout results -->in html
+
+
+
 }
 
 // Activates knockout.js
