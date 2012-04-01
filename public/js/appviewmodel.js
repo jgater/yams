@@ -19,16 +19,16 @@ function AppViewModel() {
 	};
 	//printout results -->in html
 	//declares array for storing 5 dies
-	this.fivedice = ko.observableArray();
+	self.fivedice = ko.observableArray();
+	self.die1 = ko.observable();
 	//populates array with 5 dies
 	this.getfivedice = function(){
 		for(i=0; i<5;i++){
 			var temp = self.rollSingleDice(); 
-			console.log("temp: " + i + " " + temp);
-			self.fivedice()[i]=temp;
-			console.log("array value is: " + i + " " + self.fivedice()[i]);
-			self.fivedice.sort();
+			self.fivedice.splice(i,1,temp)
+			console.log(self.fivedice()[i]);
 		}
+		self.die1(self.rollSingleDice());
 	};
 
 

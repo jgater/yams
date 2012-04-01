@@ -6,7 +6,7 @@
 	<!--<link href="/css/bootstrap.css" rel="stylesheet">-->
 	<link href="/css/yams.css" rel="stylesheet">
 	<!--scripts-->
-	<script type='text/javascript' src='/js/lib/knockout-2.1.0beta.js'></script>
+	<script type='text/javascript' src='/js/lib/knockout-2.0.0.js'></script>
 </head>
 <body>
 
@@ -34,8 +34,8 @@
 
 <button data-bind="click: getfivedice">Roll my dice</button>
 
-<P>The first die is</P> <span data-bind="text: fivedice()[0]"></span>
-
+<P>The first die is: <span data-bind="text: fivedice()[0]"></span></p>
+<P>Die1 is: <span data-bind="text: die1()"></span></p>
 
 <script type='text/javascript' src='/js/appviewmodel.js'></script>
 </body>
