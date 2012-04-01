@@ -21,12 +21,15 @@ function AppViewModel() {
 	//declares array for storing 5 dies
 	this.fivedice = ko.observableArray();
 	//populates array with 5 dies
-	this.getfivedice = ko.computed(function(){
+	this.getfivedice = function(){
 		for(i=0; i<5;i++){
-			self.fivedice.push(self.rollSingleDice()); 
+			var temp = self.rollSingleDice(); 
+			console.log("temp: " + i + " " + temp);
+			self.fivedice()[i]=temp;
+			console.log("array value is: " + i + " " + self.fivedice()[i]);
+			self.fivedice.sort();
 		}
-	}
-	);
+	};
 
 
 
