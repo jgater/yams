@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<h1>Yams</h1>
+<h1>This is a game of Yams</h1>
 
 <!-- This is a *view* - HTML markup that defines the appearance of your UI -->
 
@@ -24,7 +24,16 @@
 
 <button data-bind="click: capitalizeLastName">Go caps</button>
 
+
+<!--Above is rubbish code -->
 <p>Your score is: <strong data-bind="text:rollSingleDice()"></strong></p>
+<p>Your dice are: </p>
+<ul data-bind="foreach: fivedice">
+	<li data-bind="text: $data">
+</ul>
+
+<button data-bind="click: getfivedice()">Roll my dice</button>
+
 
 
 
