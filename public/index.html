@@ -28,14 +28,14 @@
 <!--Above is rubbish code -->
 <p>Your score is: <strong data-bind="text:rollSingleDice()"></strong></p>
 <p>Your dice are: </p>
-<ul data-bind="foreach: fivedice">
+<ul data-bind="foreach: fiveDice">
 	<li data-bind="text: $data">
 </ul>
 
-<button data-bind="click: getfivedice">Roll my dice</button>
+<button data-bind="click: getFiveDice">Roll my dice</button>
 
-<P>The first die is: <span data-bind="text: fivedice()[0]"></span></p>
-<P>Die1 is: <span data-bind="text: die1()"></span></p>
+<P>The first die is: <span data-bind="text: fiveDice()[10]"></span></p>
+
 
 <script type='text/javascript' src='/js/appviewmodel.js'></script>
 </body>

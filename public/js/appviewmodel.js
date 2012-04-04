@@ -17,22 +17,35 @@ function AppViewModel() {
 	this.rollSingleDice = function(){
     	return Math.floor(Math.random()*6+1);
 	};
-	//printout results -->in html
+
 	//declares array for storing 5 dies
-	self.fivedice = ko.observableArray();
-	self.die1 = ko.observable();
+	this.fiveDice = ko.observableArray([
+    {"id":"die1", "value":0, "reroll":true},
+	{"id":"die2", "value":0, "reroll":true},
+	{"id":"die3", "value":0, "reroll":true},
+	{"id":"die4", "value":0, "reroll":true},
+	{"id":"die5", "value":0, "reroll":true}
+	]);
 	//populates array with 5 dies
-	this.getfivedice = function(){
+
+
+	//NOW, does it replace all object with 1 value --> it does :(
+	//OR how the f** does it knwo where to put that number?
+	this.getFiveDice = function(){
 		for(i=0; i<5;i++){
-			var temp = self.rollSingleDice(); 
-			self.fivedice.splice(i,1,temp)
-			console.log(self.fivedice()[i]);
+			var temp = self.rollSingleDice(); //calls for random value
+			self.fiveDice.splice(i,1,temp);//adds value to value prop of die obj
+			console.log(self.fiveDice()[i]);//prints to screen
 		}
-		self.die1(self.rollSingleDice());
 	};
-
-
-
+//the following works in pure js
+//var getFiveDice = function(){
+//	for(i=0; i<5;i++){
+//		var temp = rollSingleDice(); //gets a number from function
+//      fiveDice[i].value = temp;//assigns that new value to die
+//		console.log(fiveDice[i].value);//shows off
+//		}
+//	};
 
 }
 
