@@ -40,21 +40,18 @@ function AppViewModel() {
 	};
 	//declares array for storing 5 dies
 	this.fiveDice = ko.observableArray([
-    	self.die1.face, self.die2.face, self.die3.face, self.die4.face, self.die5.face
+    	self.die1, self.die2, self.die3, self.die4, self.die5
     ]);
 	//populates array with 5 dies
 
 
 	//supposedly gives a face value to all dice
-	this.getFiveDice = function(){
-		for (i=1; i<6; i++) {
-			this.temp = "self.die"+i; //this.temp = name of die
-			console.log(this.temp);
-			console.log(self.die1.face());
-			this.temp2 = self.rollSingleDice(); //temp2 = number
-			console.log(this.temp2);
-			this.temp.face = this.temp2; //gives value of die to its face
-			console.log(this.temp.face());
+	this.rollFiveDice = function(){
+		for (i=0; i<5; i++) {
+			var temp = self.rollSingleDice(); //gets a number from function
+      self.fiveDice()[i].face(temp);//assigns that new value to die
+			console.log(self.fiveDice()[i].face());//shows off
+
 		};
 	};
 
