@@ -35,7 +35,7 @@ function AppViewModel() {
 		reroll: ko.observable(true)
 	};
 	this.die5 ={
-		face: ko.observable(0),
+		face: ko.observable(1),
 		reroll: ko.observable(true)
 	};
 	//declares array for storing 5 dies
@@ -45,16 +45,15 @@ function AppViewModel() {
 	//populates array with 5 dies
 
 
-	//NOW, does it replace all object with 1 value --> it does :(
-	//OR how the f** does it knwo where to put that number?
+	//supposedly gives a face value to all dice
 	this.getFiveDice = function(){
 		for (i=1; i<6; i++) {
-			this.temp = "self.die"+i;
+			this.temp = "self.die"+i; //this.temp = name of die
 			console.log(this.temp);
 			console.log(this.temp.face);
-			this.temp2 = self.rollSingleDice();
+			this.temp2 = self.rollSingleDice(); //temp2 = number
 			console.log(this.temp2);
-			this.temp.face = this.temp2;
+			this.temp.face = this.temp2; //gives value of die to its face
 			console.log(this.temp.face);
 		};
 	};
