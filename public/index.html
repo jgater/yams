@@ -28,17 +28,29 @@
 <!--Above is rubbish code -->
 <p>Your score is: <strong data-bind="text:rollSingleDice()"></strong></p>
 <p>Your dice are: </p>
-<ul>
-	<li data-bind="text: die1.face">
-	<li data-bind="text: die2.face">
-	<li data-bind="text: die3.face">
-	<li data-bind="text: die4.face">
-	<li data-bind="text: die5.face">
+<ul data-bind ="foreach:fiveDice">
+	<li data-bind = "text:$data.face">
 </ul>
+
+<table border="1">
+
+<tr><th>Combinations</th><th>Free</th></tr>
+<tr><td>All 1s</td>
+	<td bgcolor=white onmouseover="this.bgColor='blue'" onmouseout="this.bgColor='white'" onClick="this.bgColor='green'"></td>
+</tr>
+<tr><td>All 2s</td><td><button>I click</button></td></tr>
+<tr><td>All 3s</td><td style="background-color: red" onclick="location.replace('2 clicks');">My Cell</td></tr>
+<tr><td>All 4s</td><td>	</td></tr>
+<tr><td>All 5s</td><td>	</td></tr>
+<tr><td>All 6s</td><td>	</td></tr>
+<tr><td><strong>Score</strong></td><td>	</td></tr>
+
+</table> 
+
 
 <button data-bind="click: rollFiveDice">Roll my dice</button>
 
-<P>The first die is: <span data-bind="text: fiveDice()"></span></p>
+<P>The first die is: <span data-bind="text: fiveDice()[0].face"></span></p>
 
 
 <script type='text/javascript' src='/js/appviewmodel.js'></script>

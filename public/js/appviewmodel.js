@@ -49,20 +49,25 @@ function AppViewModel() {
 	this.rollFiveDice = function(){
 		for (i=0; i<5; i++) {
 			var temp = self.rollSingleDice(); //gets a number from function
-      self.fiveDice()[i].face(temp);//assigns that new value to die
+      		self.fiveDice()[i].face(temp);//assigns that new value to die
+      		//parsing temp as variable to method ko.observable
 			console.log(self.fiveDice()[i].face());//shows off
-
 		};
 	};
 
-//the following works in pure js
-//var getFiveDice = function(){
-//	for(i=0; i<5;i++){
-//		var temp = rollSingleDice(); //gets a number from function
-//      fiveDice[i].value = temp;//assigns that new value to die
-//		console.log(fiveDice[i].value);//shows off
-//		}
-//	};
+	
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
