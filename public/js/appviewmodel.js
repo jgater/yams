@@ -50,11 +50,11 @@ function AppViewModel() {
 		for (i=1; i<6; i++) {
 			this.temp = "self.die"+i; //this.temp = name of die
 			console.log(this.temp);
-			console.log(this.temp.face);
+			console.log(self.die1.face());
 			this.temp2 = self.rollSingleDice(); //temp2 = number
 			console.log(this.temp2);
 			this.temp.face = this.temp2; //gives value of die to its face
-			console.log(this.temp.face);
+			console.log(this.temp.face());
 		};
 	};
 
