@@ -17,27 +17,48 @@ function AppViewModel() {
 	this.rollSingleDice = function(){
     	return Math.floor(Math.random()*6+1);
 	};
-
+	// creates 5 dies objects
+	this.die1 ={
+		face: ko.observable(0),
+		reroll: ko.observable(true)
+	};
+	this.die2 ={
+		face: ko.observable(0),
+		reroll: ko.observable(true)
+	};
+	this.die3 ={
+		face: ko.observable(0),
+		reroll: ko.observable(true)
+	};
+	this.die4 ={
+		face: ko.observable(0),
+		reroll: ko.observable(true)
+	};
+	this.die5 ={
+		face: ko.observable(0),
+		reroll: ko.observable(true)
+	};
 	//declares array for storing 5 dies
 	this.fiveDice = ko.observableArray([
-    {"id":"die1", "value":0, "reroll":true},
-	{"id":"die2", "value":0, "reroll":true},
-	{"id":"die3", "value":0, "reroll":true},
-	{"id":"die4", "value":0, "reroll":true},
-	{"id":"die5", "value":0, "reroll":true}
-	]);
+    	self.die1.face, self.die2.face, self.die3.face, self.die4.face, self.die5.face
+    ]);
 	//populates array with 5 dies
 
 
 	//NOW, does it replace all object with 1 value --> it does :(
 	//OR how the f** does it knwo where to put that number?
 	this.getFiveDice = function(){
-		for(i=0; i<5;i++){
-			var temp = self.rollSingleDice(); //calls for random value
-			self.fiveDice.splice(i,1,temp);//adds value to value prop of die obj
-			console.log(self.fiveDice()[i]);//prints to screen
-		}
+		for (i=1; i<6; i++) {
+			this.temp = "self.die"+i;
+			console.log(this.temp);
+			console.log(this.temp.face);
+			this.temp2 = self.rollSingleDice();
+			console.log(this.temp2);
+			this.temp.face = this.temp2;
+			console.log(this.temp.face);
+		};
 	};
+
 //the following works in pure js
 //var getFiveDice = function(){
 //	for(i=0; i<5;i++){
