@@ -27,10 +27,20 @@
 
 <!--Above is rubbish code -->
 <p>Your score is: <strong data-bind="text:rollSingleDice()"></strong></p>
-<p>Your dice are: </p>
-<ul data-bind ="foreach:fiveDice">
-	<li data-bind = "text:$data.face">
-</ul>
+
+
+<table border="5">
+    <thead>
+        <tr><th>Dice</th><th>Value</th></tr>
+    </thead>
+    <tbody data-bind="foreach: fiveDice">
+        <tr>
+            <td data-bind="text: name"></td>
+            <td><span data-bind="text: face"></span><a href="#" data-bind="click: $parent.selectKeep()">Keep</a></td>           
+        </tr>
+    </tbody>
+</table>
+
 
 <table border="1">
 

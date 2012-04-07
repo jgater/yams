@@ -19,22 +19,27 @@ function AppViewModel() {
 	};
 	// creates 5 dies objects
 	this.die1 ={
+		name: "die1",
 		face: ko.observable(0),
 		reroll: ko.observable(true)
 	};
 	this.die2 ={
+		name: "die2",
 		face: ko.observable(0),
 		reroll: ko.observable(true)
 	};
 	this.die3 ={
+		name: "die3",
 		face: ko.observable(0),
 		reroll: ko.observable(true)
 	};
 	this.die4 ={
+		name:"die4",
 		face: ko.observable(0),
 		reroll: ko.observable(true)
 	};
 	this.die5 ={
+		name:"die5",
 		face: ko.observable(1),
 		reroll: ko.observable(true)
 	};
@@ -48,11 +53,18 @@ function AppViewModel() {
 	//supposedly gives a face value to all dice
 	this.rollFiveDice = function(){
 		for (i=0; i<5; i++) {
-			var temp = self.rollSingleDice(); //gets a number from function
-      		self.fiveDice()[i].face(temp);//assigns that new value to die
-      		//parsing temp as variable to method ko.observable
-			console.log(self.fiveDice()[i].face());//shows off
+			if (self.fiveDice()[i].reroll() === true){
+				var temp = self.rollSingleDice(); //gets a number from function
+      			self.fiveDice()[i].face(temp);//assigns that new value to die
+      			//parsing temp as variable to method ko.observable
+				console.log(self.fiveDice()[i].face());//shows off
+			}
 		};
+	};
+
+	this.selectKeep = function(){
+		//turn reroll to false????????
+		self.fiveDice().reroll===false;
 	};
 
 	
