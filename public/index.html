@@ -1,76 +1,65 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Yams</title>
 	<!--styles -->
-	<!--<link href="/css/bootstrap.css" rel="stylesheet">-->
+	<link href="/css/bootstrap.css" rel="stylesheet">
 	<link href="/css/yams.css" rel="stylesheet">
 	<!--scripts-->
-	<script type='text/javascript' src='/js/lib/knockout-2.0.0.js'></script>
+	<script type='text/javascript' src='/js/lib/knockout-2.1.0beta.js'></script>
 </head>
 <body>
-<!-- This is a *view* - HTML markup that defines the appearance of your UI
-<p>First name: <strong data-bind="text: firstName"></strong></p>
-<p>Last name: <strong data-bind="text: lastName"></strong></p>
-<p>First name: <input data-bind="value: firstName" /></p>
-<p>Last name: <input data-bind="value: lastName" /></p>
-<p>Full name: <strong data-bind="text: fullName"></strong></p>
-<button data-bind="click: capitalizeLastName">Go caps</button>
-Above is rubbish code -->
-<!--<p>Your score is: <strong data-bind="text:rollSingleDice()"></strong></p>-->
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span6">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th></th>
+						<th width="17%" align="center">Free</th>
+						<th width="17%">Descend</th>
+						<th width="17%">Ascend</th>
+						<th width="17%">Announced</th>
+						<th width="17%">Dry</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- ko foreach: names -->
+					<tr>
+						<td data-bind="text:$data"></td>
+						<td data-bind="text:$parent.free[$index()].result, click: function() {$root.calcScore($parent.free[$index()])}"></td>
+						<td data-bind="text:$parent.descend[$index()].result, click: function() {$root.calcScore($parent.descend[$index()])}"></td>
+						<td data-bind="text:$parent.ascend[$index()].result, click: function() {$root.calcScore($parent.ascend[$index()])}"></td>
+						<td data-bind="text:$parent.announce[$index()].result, click: function() {$root.calcScore($parent.announce[$index()])}"></td>
+						<td data-bind="text:$parent.dry[$index()].result, click: function() {$root.calcScore($parent.dry[$index()])}"></td>
+					</tr>
+					<!-- /ko -->
+				</tbody>
+			</table>
 
-<!-- table to display scores-->
-<table border = "10">
-    <thead colspan="2">Your results</th>
-    <tbody>
-    <!-- ko foreach: free -->
-    <tr>
-        <td data-bind="text:$data.name"> </td>
-        <td width="20px" data-bind="text:$data.result, click:$parent.calcScore"></td>
-    </tr>
-    <!-- /ko -->
-    <tr>
-        <td>Total</td>
-        <td data-bind="text:freeScore"></td>
-    </tr>
-</tbody>
-</table>
-
-<!-- table to display dice values-->
-<button data-bind="click: rollFiveDice">Roll my dice</button>
-<table border="5">
-    <thead>
-        <tr><th>Dice</th><th>Value</th></tr>
-    </thead>
-    <tbody data-bind="foreach: fiveDice">
-        <tr>
-            <td data-bind="text: name"></td>
-            <td><span data-bind="text: face"></span></td>           
-        </tr>
-    </tbody>
-</table>
-
-
-<table border="1">
-
-<tr><th>Combinations</th><th>Free</th></tr>
-<tr><td>All 1s</td>
-	<td bgcolor=white onmouseover="this.bgColor='blue'" onmouseout="this.bgColor='white'" onClick="this.bgColor='green'"></td>
-</tr>
-<tr><td>All 2s</td><td><button>I click</button></td></tr>
-<tr><td>All 3s</td><td style="background-color: red" onclick="location.replace('2 clicks');">My Cell</td></tr>
-<tr><td>All 4s</td><td>	</td></tr>
-<tr><td>All 5s</td><td>	</td></tr>
-<tr><td>All 6s</td><td>	</td></tr>
-<tr><td><strong>Score</strong></td><td>	</td></tr>
-
-</table> 
+		</div> <!-- end column -->
+	
+		<div class="span6">
+			<!-- table to display dice values-->
+			<table class="table table-bordered" >
+				<thead>
+					<tr>
+						<th colspan="5">Dice</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-bind="foreach: fiveDice">
+						<td data-bind="text: face"></td>           
+					</tr>
+				</tbody>
+			</table>
+			<button class="btn btn-primary btn-large" data-bind="click: rollFiveDice">Roll my dice</button>
+		</div> <! -- end column -->
 
 
-
-
-<P>The first die is: <span data-bind="text: fiveDice()[0].face"></span></p>
-
+	</div> <!-- end row div -->
+</div> <!-- end container div -->
 
 <script type='text/javascript' src='/js/appviewmodel.js'></script>
 </body>

@@ -1,6 +1,6 @@
 // This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
 function AppViewModel() {
-	var self = this;
+	var self = this;  
 
 	//My dice run
 	this.rollSingleDice = function(){
@@ -49,12 +49,15 @@ function AppViewModel() {
 				console.log(self.fiveDice()[i].face());//shows off
 			}
 		};
+		self.scoreCalculated = false;
 	};
+
 
 	//Creating an array which reflects scoring table
 	this.free = [
 		{
 			name:"All 1s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -73,6 +76,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 2s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -91,6 +95,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 3s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -109,6 +114,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 4s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -127,6 +133,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 5s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -145,6 +152,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 6s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -162,56 +170,54 @@ function AppViewModel() {
 			}
 		},
 		{
-			name:"double",
+			name:"One Pair",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
-				var facearray = [];
-				for ( var i=0 ; i<5; i++ ) {
-					facearray.push( self.fiveDice()[i].face() );
+				var freeDice = [];
+				for (var i=0; i<self.fiveDice().length; i++){
+					freeDice.push(self.fiveDice()[i].face());
 				}
-				var sorted = facearray.sort();
+
+				freeDice.sort();
 				this.result("x");
-				for (var i = sorted.length; i > 0 ; i--) {
-    			if (sorted[i] === sorted[i-1]) {
-        		this.result(sorted[i]*2);
-        		break;
-    			}
-    		}
-    	}	
-		},
-		{
-			name:"triple",
-			result: ko.observable("   "),
-			rules: function(){
-				var facearray = [];
-				for ( var i=0 ; i<5; i++ ) {
-					facearray.push( self.fiveDice()[i].face() );
+				for (var i=freeDice.length; i>=0; i--){
+					if (freeDice[i] === freeDice[i-1]){
+						this.result(freeDice[i]*2);
+						break;
+					}
 				}
-				var sorted = facearray.sort();
-				this.result("x");
-				for (var i = sorted.length; i > 0 ; i--) {
-    			if ( sorted[i] === sorted[i-1] && sorted[i] === sorted[i-2] ) {
-        		this.result(sorted[i]*3);
-        		break;
-    			}
-    		}
-    	}	
+
+			}
 		}
 	];
 
-		this.freeScore = ko.computed(function(){
-		var tempscore = 0;
-		for (i=0;i<self.free.length;i++){
-			if (   typeof( self.free[i].result() ) === "number"    ) {
-				tempscore += self.free[i].result();
+	//stops clicking on several numbers at one rollDice
+	this.scoreCalculated = true;
+	
+	//Applies rules of calculation of score for individual cells
+	this.calcScore = function(clicked){
+		if (self.scoreCalculated === false){
+			if (clicked.isSet() === false){
+				clicked.rules();
+				clicked.isSet(true);
+				self.scoreCalculated = true;
+			}
+			else{
+				alert("You have already picked that number");
 			}
 		}
-		return tempscore;
-	});
-	
-	this.calcScore = function(clicked){
-		clicked.rules();
 	};
+// calculates and updates total of free column
+	this.freeScore = ko.computed(function(){
+		var tempScore = 0;
+		for (i=0;i<self.free.length; i++){
+			if (typeof (self.free[i].result()) === "number"){
+				tempScore += self.free[i].result();
+			}
+		}
+		return tempScore;
+	});
 	
 
 

@@ -5,3 +5,15 @@ body {
   line-height: 18px;
   background-color: #ffffff;
 }
+
+.table thead th {
+  text-align: center;
+}
+
+.table tbody td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: center;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}

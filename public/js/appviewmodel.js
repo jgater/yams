@@ -1,14 +1,16 @@
-// This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
 
+// This is a *viewmodel* - JavaScript that defines the data and behavior of your UI
 
+function AppViewModel() {
+	var self = this;
+
+//data model
 var td = function(rule) {
 	this.isSet = ko.observable(false);
 	this.result = ko.observable(" ");
 	this.rules = rule;
-
-}
-
-//array for all the rules in the game
+};
+	//array for all the rules in the game
 var rulesArray = [
 	//this for all 1s
 	function(){
@@ -194,11 +196,26 @@ var rulesArray = [
 			this.result(freeDice[i]*5);
 		}
 	}
-]
+];
 
+this.names = [
+	"All 1s",
+	"All 2s",
+	"All 3s",
+	"All 4s",
+	"All 5s",
+	"All 6s",
+	"One pair",
+	"Two pair",
+	"Triple",
+	"Full house",
+	"Square",
+	"Flush",
+	"Small chance",
+	"Big chance",
+	"Yam"
+];
 
-function AppViewModel() {
-	var self = this;
 
 	//Rolling the dice once
 	this.rollSingleDice = function(){
@@ -244,7 +261,6 @@ function AppViewModel() {
 				var temp = self.rollSingleDice(); //gets a number from function
       			self.fiveDice()[i].face(temp);//assigns that new value to die
       			//parsing temp as variable to method ko.observable
-				console.log(self.fiveDice()[i].face());//shows off
 			}
 		};
 		self.scoreCalculated = false;
@@ -270,35 +286,32 @@ function AppViewModel() {
 				clicked.isSet(true);
 				self.scoreCalculated = true;
 			}
-			else{
+			else {
 				alert("You have already picked that number");
 			}
 		}
-	};
-// calculates and updates total of free column
-	this.freeScore = ko.computed(function(){
-		var tempScore = 0;
-		for (i=0;i<self.free.length; i++){
-			if (typeof (self.free[i].result()) === "number"){
-				tempScore += self.free[i].result();
-			}
+		else {
+			alert("You've already picked a spot, roll the dice again!")
 		}
-		return tempScore;
-	});
-	
+	};
 
+	// arrays of column objects	
+	this.free = [];
+	this.descend = [];
+	this.ascend = [];
+	this.announce = [];
+	this.dry = [];
+	for (i in rulesArray) {
+		// for each rule in rulesArray, create a new set of table data objects, and link them to that rule
+		var rule = rulesArray[i];
+		self.free.push( new td(rule) );
+		self.descend.push( new td(rule) );
+		self.ascend.push( new td(rule) );
+		self.announce.push( new td(rule) );
+		self.dry.push( new td(rule) );
+	}	
 
-
-
-
-
-
-
-
-
-
-
-
+// end of appviewmodel
 }
 
 // Activates knockout.js
