@@ -1,0 +1,60 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Yams</title>
+	<!--styles -->
+	<!--<link href="/css/bootstrap.css" rel="stylesheet">-->
+	<link href="/css/yams.css" rel="stylesheet">
+	<!--scripts-->
+	<script type='text/javascript' src='/js/lib/knockout-2.1.0beta.js'></script>
+</head>
+<body>
+
+<!-- table to display scores -->
+<table border = "10">
+    <thead></thead>
+    <tbody>
+    <!-- ko foreach: free -->
+        <tr><td data-bind="text:$data.name"></td><td width="20px" data-bind="text:$data.result, click:$parent.calcScore"></td></tr>
+    <!-- /ko -->
+    <tr>
+        <td>Total</td>
+        <td data-bind="text:freeScore"></td>
+    </tr>
+    <tbody>
+</table>
+
+<!-- table to display dice values-->
+<button data-bind="click: rollFiveDice">Roll my dice</button>
+<table border="5">
+    <thead>
+        <tr><th>Dice</th><th>Value</th></tr>
+    </thead>
+    <tbody data-bind="foreach: fiveDice">
+        <tr>
+            <td data-bind="text: name"></td>
+            <td><span data-bind="text: face"></span></td>           
+        </tr>
+    </tbody>
+</table>
+
+
+<table border="1">
+
+<tr><th>Combinations</th><th>Free</th></tr>
+<tr><td>All 1s</td>
+	<td bgcolor=white onmouseover="this.bgColor='blue'" onmouseout="this.bgColor='white'" onClick="this.bgColor='green'"></td>
+</tr>
+<tr><td>All 2s</td><td><button>I click</button></td></tr>
+<tr><td>All 3s</td><td style="background-color: red" onclick="location.replace('2 clicks');">My Cell</td></tr>
+<tr><td>All 4s</td><td>	</td></tr>
+<tr><td>All 5s</td><td>	</td></tr>
+<tr><td>All 6s</td><td>	</td></tr>
+<tr><td><strong>Score</strong></td><td>	</td></tr>
+
+</table> 
+
+
+<script type='text/javascript' src='/js/james-appviewmodel.js'></script>
+</body>
+</html>
