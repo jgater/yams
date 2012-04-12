@@ -179,6 +179,27 @@ function AppViewModel() {
 					this.result(numberofdice*6);
 				}
 			}
+		},
+		{
+			name:"One Pair",
+			isSet: ko.observable(false),
+			result: ko.observable("   "),
+			rules: function(){
+				var freeDice = [];
+				for (var i=0; i<self.fiveDice().length; i++){
+					freeDice.push(self.fiveDice()[i].face());
+				}
+
+				freeDice.sort();
+				this.result("x");
+				for (var i=freeDice.length; i>=0; i--){
+					if (freeDice[i] === freeDice[i-1]){
+						this.result(freeDice[i]*2);
+						break;
+					}
+				}
+
+			}
 		}
 	];
 
