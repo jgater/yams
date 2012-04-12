@@ -1,19 +1,206 @@
 // This is a simple *viewmodel* - JavaScript that defines the data and behavior of your UI
+
+
+var td = function(rule) {
+	this.isSet = ko.observable(false);
+	this.result = ko.observable(" ");
+	this.rules = rule;
+
+}
+
+//array for all the rules in the game
+var rulesArray = [
+	//this for all 1s
+	function(){
+		var numberofdice = 0;
+		for (i=0; i<self.fiveDice().length; i++){
+		if (self.fiveDice()[i].face() === 1){
+			numberofdice++;
+			}
+		}
+		if (numberofdice === 0){
+			this.result("x");
+		}
+		else {
+			this.result(numberofdice*1);
+		}
+	},
+	//all 2s
+	function(){
+		var numberofdice = 0;
+		for (i=0; i<self.fiveDice().length; i++){
+			if (self.fiveDice()[i].face() === 2){
+				numberofdice++;
+			}
+		}
+		if (numberofdice === 0){
+			this.result("x");
+		}
+		else {
+			this.result(numberofdice*2);
+		}
+			
+	},
+	//all 3s
+	function(){
+		var numberofdice = 0;
+		for (i=0; i<self.fiveDice().length; i++){
+			if (self.fiveDice()[i].face() === 3){
+				numberofdice++;
+			}
+		}
+		if (numberofdice === 0){
+			this.result("x");
+		}
+		else {
+			this.result(numberofdice*3);
+		}
+	},
+	//all 4s
+	function(){
+		var numberofdice = 0;
+		for (i=0; i<self.fiveDice().length; i++){
+			if (self.fiveDice()[i].face() === 4){
+				numberofdice++;
+			}
+		}
+		if (numberofdice === 0){
+			this.result("x");
+		}
+		else {
+			this.result(numberofdice*4);
+		}
+	},
+	//all 5s
+	function(){
+		var numberofdice = 0;
+		for (i=0; i<self.fiveDice().length; i++){
+			if (self.fiveDice()[i].face() === 5){
+				numberofdice++;
+			}
+		}
+		if (numberofdice === 0){
+			this.result("x");
+		}
+		else {
+			this.result(numberofdice*5);
+		}
+	},
+	//all 6s
+	function(){
+		var numberofdice = 0;
+		for (i=0; i<self.fiveDice().length; i++){
+			if (self.fiveDice()[i].face() === 6){
+				numberofdice++;
+			}
+		}
+		if (numberofdice === 0){
+			this.result("x");
+		}
+		else {
+			this.result(numberofdice*6);
+		}
+	},
+	// One pair
+	function(){
+		var freeDice = self.sortedDice();
+		this.result("x");
+		for (var i=freeDice.length; i>=0; i--){
+			if (freeDice[i] === freeDice[i-1]){
+				this.result(freeDice[i]*2);
+				break;
+			}
+		}
+	},
+	//double pair
+	function(){
+		var freeDice = self.sortedDice();
+		this.result("x");
+		var tempresult = 0;
+		var doubles= 0;
+		for (var i=freeDice.length; i>=0; i--){
+			if (doubles<2){
+				if (freeDice[i] === freeDice[i-1]){
+					doubles++;
+					tempresult += freeDice[i]*2;
+				}
+			}
+			this.result(tempresult);
+		}
+	},
+	// three of a kind
+	function(){
+		var freeDice = self.sortedDice();
+		this.result("x");
+		for (var i = freeDice.length; i > 0 ; i--) {
+    		if ( freeDice[i] === freeDice[i-1] && freeDice[i] === freeDice[i-2] ) {
+    			this.result(freeDice[i]*3);
+    			break;
+    		}
+    	}
+    },
+    //Full house
+    function(){
+		var freeDice = self.sortedDice();
+		this.result("x");
+		var i = 4;
+		if (freeDice[i] === freeDice[i-1] && freeDice[i-2] === freeDice[i-4]){
+			this.result(freeDice[i]*2+freeDice[i-2]*3);
+		}
+		else if (freeDice[i] === freeDice[i-2] && freeDice[i-3] === freeDice[i-4]){
+			this.result(freeDice[i]*3+freeDice[i-3]*2);
+		}
+	},
+	//Square
+	function(){
+		var freeDice = self.sortedDice();
+		this.result("x");
+		var i = 4;
+		if (freeDice[i] === freeDice[i-1]){
+			this.result(freeDice[i]*4);
+		}
+		else if (freeDice[i-1] === freeDice[i-2]){
+			this.result(freeDice[i-1]*4);
+		}
+	},
+	//Flush
+	function(){
+		var freeDice = self.sortedDice();
+		this.result("x");
+		var i = 4;
+		if (freeDice[i] === 6 && freeDice[i-1] === 5 && freeDice[i-2] === 4 && freeDice[i-3] === 3 && freeDice[i-4] === 2){
+			this.result(20);
+		}
+		else if (freeDice[i] === 5 && freeDice[i-1] === 4 && freeDice[i-2] === 3 && freeDice[i-3] === 2 && freeDice[i-4] === 1){
+			this.result(15);
+		}
+	},
+	//Small Chance
+	function(){
+		var freeDice = self.sortedDice();
+		this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
+	},
+	//Big Chance
+	function(){
+		var freeDice = self.sortedDice();
+		this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
+	},
+	//Yam
+	function(){
+		var freeDice = self.sortedDice();
+		this.result("x");
+		var i = 4;
+		if (freeDice[i] === freeDice[i-4]){
+			this.result(freeDice[i]*5);
+		}
+	}
+]
+
+
 function AppViewModel() {
 	var self = this;
-    this.firstName = ko.observable("Bob");
-    this.lastName = ko.observable("Builder");
 
-    this.fullName = ko.computed(function() {
-        return this.firstName() + " " + this.lastName();    
-    }, this);
-
-    this.capitalizeLastName = function() {
-        var currentVal = this.lastName();        // Read the current value
-        this.lastName(currentVal.toUpperCase()); // Write back a modified value
-    };    
-
-	//My dice run
+	//Rolling the dice once
 	this.rollSingleDice = function(){
     	return Math.floor(Math.random()*6+1);
 	};
@@ -71,257 +258,6 @@ function AppViewModel() {
 		}
 		return freeDice.sort();
 	};
-
-	//Creating an array which reflects scoring table
-	this.free = [
-		{
-			name:"All 1s",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var numberofdice = 0;
-				for (i=0; i<self.fiveDice().length; i++){
-					if (self.fiveDice()[i].face() === 1){
-						numberofdice++;
-					}
-				}
-				if (numberofdice === 0){
-					this.result("x");
-				}
-				else {
-					this.result(numberofdice*1);
-				}
-			}
-		},
-		{
-			name:"All 2s",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var numberofdice = 0;
-				for (i=0; i<self.fiveDice().length; i++){
-					if (self.fiveDice()[i].face() === 2){
-						numberofdice++;
-					}
-				}
-				if (numberofdice === 0){
-					this.result("x");
-				}
-				else {
-					this.result(numberofdice*2);
-				}
-			}
-		},
-		{
-			name:"All 3s",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var numberofdice = 0;
-				for (i=0; i<self.fiveDice().length; i++){
-					if (self.fiveDice()[i].face() === 3){
-						numberofdice++;
-					}
-				}
-				if (numberofdice === 0){
-					this.result("x");
-				}
-				else {
-					this.result(numberofdice*3);
-				}
-			}
-		},
-		{
-			name:"All 4s",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var numberofdice = 0;
-				for (i=0; i<self.fiveDice().length; i++){
-					if (self.fiveDice()[i].face() === 4){
-						numberofdice++;
-					}
-				}
-				if (numberofdice === 0){
-					this.result("x");
-				}
-				else {
-					this.result(numberofdice*4);
-				}
-			}
-		},
-		{
-			name:"All 5s",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var numberofdice = 0;
-				for (i=0; i<self.fiveDice().length; i++){
-					if (self.fiveDice()[i].face() === 5){
-						numberofdice++;
-					}
-				}
-				if (numberofdice === 0){
-					this.result("x");
-				}
-				else {
-					this.result(numberofdice*5);
-				}
-			}
-		},
-		{
-			name:"All 6s",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var numberofdice = 0;
-				for (i=0; i<self.fiveDice().length; i++){
-					if (self.fiveDice()[i].face() === 6){
-						numberofdice++;
-					}
-				}
-				if (numberofdice === 0){
-					this.result("x");
-				}
-				else {
-					this.result(numberofdice*6);
-				}
-			}
-		},
-		{
-			name:"One Pair",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result("x");
-				for (var i=freeDice.length; i>=0; i--){
-					if (freeDice[i] === freeDice[i-1]){
-						this.result(freeDice[i]*2);
-						break;
-					}
-				}
-
-			}
-		},
-		{
-			name:"Double Pair",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result("x");
-				var tempresult = 0;
-				var doubles= 0;
-				for (var i=freeDice.length; i>=0; i--){
-					if (doubles<2){
-						if (freeDice[i] === freeDice[i-1]){
-							doubles++;
-							tempresult += freeDice[i]*2;
-						}
-					}
-					this.result(tempresult);
-				}
-
-			}
-		},
-		{
-			name:"Three of a kind",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result("x");
-				for (var i = freeDice.length; i > 0 ; i--) {
-    				if ( freeDice[i] === freeDice[i-1] && freeDice[i] === freeDice[i-2] ) {
-        				this.result(freeDice[i]*3);
-        				break;
-    				}
-    			}
-    		}
-    	},
-    	{
-			name:"Full House",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result("x");
-				var i = 4;
-				if (freeDice[i] === freeDice[i-1] && freeDice[i-2] === freeDice[i-4]){
-					this.result(freeDice[i]*2+freeDice[i-2]*3);
-				}
-				else if (freeDice[i] === freeDice[i-2] && freeDice[i-3] === freeDice[i-4]){
-					this.result(freeDice[i]*3+freeDice[i-3]*2);
-				}
-				
-			}
-		},
-		{
-			name:"Square",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result("x");
-				var i = 4;
-				if (freeDice[i] === freeDice[i-1]){
-					this.result(freeDice[i]*4);
-				}
-				else if (freeDice[i-1] === freeDice[i-2]){
-					this.result(freeDice[i-1]*4);
-				}
-
-			}
-		},
-		{
-			name:"Flush",
-			isSet:ko.observable(false),
-			result:ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result("x");
-				var i = 4;
-				if (freeDice[i] === 6 && freeDice[i-1] === 5 && freeDice[i-2] === 4 && freeDice[i-3] === 3 && freeDice[i-4] === 2){
-					this.result(20);
-				}
-				else if (freeDice[i] === 5 && freeDice[i-1] === 4 && freeDice[i-2] === 3 && freeDice[i-3] === 2 && freeDice[i-4] === 1){
-					this.result(15);
-				}
-			}
-		},
-		{
-			name:"Small Chance",
-			isSet: ko.observable(false),
-			result:ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
-			}
-		},
-			{
-			name:"Big Chance",
-			isSet: ko.observable(false),
-			result:ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
-			}
-		},
-		{
-			name: "Yam",
-			isSet: ko.observable(false),
-			result: ko.observable("   "),
-			rules: function(){
-				var freeDice = self.sortedDice();
-				this.result("x");
-				var i = 4;
-				if (freeDice[i] === freeDice[i-4]){
-					this.result(freeDice[i]*5);
-				}
-			}
-		}
-	];
 
 	//stops clicking on several numbers at one rollDice
 	this.scoreCalculated = true;
