@@ -21,6 +21,8 @@ Above is rubbish code -->
 
 <!-- table to display scores-->
 <table border = "10">
+    <thead colspan="2">Your results</th>
+    <tbody>
     <!-- ko foreach: free -->
     <tr>
         <td data-bind="text:$data.name"> </td>
@@ -29,8 +31,9 @@ Above is rubbish code -->
     <!-- /ko -->
     <tr>
         <td>Total</td>
-        <td></td>
+        <td data-bind="text:freeScore"></td>
     </tr>
+</tbody>
 </table>
 
 <!-- table to display dice values-->

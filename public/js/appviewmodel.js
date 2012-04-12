@@ -60,6 +60,7 @@ function AppViewModel() {
 				console.log(self.fiveDice()[i].face());//shows off
 			}
 		};
+		self.scoreCalculated = false;
 	};
 
 
@@ -67,6 +68,7 @@ function AppViewModel() {
 	this.free = [
 		{
 			name:"All 1s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -85,6 +87,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 2s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -103,6 +106,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 3s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -121,6 +125,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 4s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -139,6 +144,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 5s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -157,6 +163,7 @@ function AppViewModel() {
 		},
 		{
 			name:"All 6s",
+			isSet: ko.observable(false),
 			result: ko.observable("   "),
 			rules: function(){
 				var numberofdice = 0;
@@ -174,10 +181,33 @@ function AppViewModel() {
 			}
 		}
 	];
+
+	//stops clicking on several numbers at one rollDice
+	this.scoreCalculated = true;
 	
+	//Applies rules of calculation of score for individual cells
 	this.calcScore = function(clicked){
-		clicked.rules();
+		if (self.scoreCalculated === false){
+			if (clicked.isSet() === false){
+				clicked.rules();
+				clicked.isSet(true);
+				self.scoreCalculated = true;
+			}
+			else{
+				alert("You have already picked that number");
+			}
+		}
 	};
+// calculates and updates total of free column
+	this.freeScore = ko.computed(function(){
+		var tempScore = 0;
+		for (i=0;i<self.free.length; i++){
+			if (typeof (self.free[i].result()) === "number"){
+				tempScore += self.free[i].result();
+			}
+		}
+		return tempScore;
+	});
 	
 
 
