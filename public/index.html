@@ -9,26 +9,32 @@
 	<script type='text/javascript' src='/js/lib/knockout-2.0.0.js'></script>
 </head>
 <body>
-
-<h1>This is a game of Yams</h1>
-
-<!-- This is a *view* - HTML markup that defines the appearance of your UI -->
-
+<!-- This is a *view* - HTML markup that defines the appearance of your UI
 <p>First name: <strong data-bind="text: firstName"></strong></p>
 <p>Last name: <strong data-bind="text: lastName"></strong></p>
-
 <p>First name: <input data-bind="value: firstName" /></p>
 <p>Last name: <input data-bind="value: lastName" /></p>
-
 <p>Full name: <strong data-bind="text: fullName"></strong></p>
-
 <button data-bind="click: capitalizeLastName">Go caps</button>
+Above is rubbish code -->
+<!--<p>Your score is: <strong data-bind="text:rollSingleDice()"></strong></p>-->
 
+<!-- table to display scores-->
+<table border = "10">
+    <!-- ko foreach: free -->
+    <tr>
+        <td data-bind="text:$data.name"> </td>
+        <td width="20px" data-bind="text:$data.result, click:$parent.calcScore"></td>
+    </tr>
+    <!-- /ko -->
+    <tr>
+        <td>Total</td>
+        <td></td>
+    </tr>
+</table>
 
-<!--Above is rubbish code -->
-<p>Your score is: <strong data-bind="text:rollSingleDice()"></strong></p>
-
-
+<!-- table to display dice values-->
+<button data-bind="click: rollFiveDice">Roll my dice</button>
 <table border="5">
     <thead>
         <tr><th>Dice</th><th>Value</th></tr>
@@ -36,7 +42,7 @@
     <tbody data-bind="foreach: fiveDice">
         <tr>
             <td data-bind="text: name"></td>
-            <td><span data-bind="text: face"></span><a href="#" data-bind="click: $parent.selectKeep()">Keep</a></td>           
+            <td><span data-bind="text: face"></span></td>           
         </tr>
     </tbody>
 </table>
@@ -58,7 +64,7 @@
 </table> 
 
 
-<button data-bind="click: rollFiveDice">Roll my dice</button>
+
 
 <P>The first die is: <span data-bind="text: fiveDice()[0].face"></span></p>
 

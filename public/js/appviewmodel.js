@@ -40,7 +40,7 @@ function AppViewModel() {
 	};
 	this.die5 ={
 		name:"die5",
-		face: ko.observable(1),
+		face: ko.observable(0),
 		reroll: ko.observable(true)
 	};
 	//declares array for storing 5 dies
@@ -62,11 +62,122 @@ function AppViewModel() {
 		};
 	};
 
-	this.selectKeep = function(){
-		//turn reroll to false????????
-		self.fiveDice().reroll===false;
-	};
 
+	//Creating an array which reflects scoring table
+	this.free = [
+		{
+			name:"All 1s",
+			result: ko.observable("   "),
+			rules: function(){
+				var numberofdice = 0;
+				for (i=0; i<self.fiveDice().length; i++){
+					if (self.fiveDice()[i].face() === 1){
+						numberofdice++;
+					}
+				}
+				if (numberofdice === 0){
+					this.result("x");
+				}
+				else {
+					this.result(numberofdice*1);
+				}
+			}
+		},
+		{
+			name:"All 2s",
+			result: ko.observable("   "),
+			rules: function(){
+				var numberofdice = 0;
+				for (i=0; i<self.fiveDice().length; i++){
+					if (self.fiveDice()[i].face() === 2){
+						numberofdice++;
+					}
+				}
+				if (numberofdice === 0){
+					this.result("x");
+				}
+				else {
+					this.result(numberofdice*2);
+				}
+			}
+		},
+		{
+			name:"All 3s",
+			result: ko.observable("   "),
+			rules: function(){
+				var numberofdice = 0;
+				for (i=0; i<self.fiveDice().length; i++){
+					if (self.fiveDice()[i].face() === 3){
+						numberofdice++;
+					}
+				}
+				if (numberofdice === 0){
+					this.result("x");
+				}
+				else {
+					this.result(numberofdice*3);
+				}
+			}
+		},
+		{
+			name:"All 4s",
+			result: ko.observable("   "),
+			rules: function(){
+				var numberofdice = 0;
+				for (i=0; i<self.fiveDice().length; i++){
+					if (self.fiveDice()[i].face() === 4){
+						numberofdice++;
+					}
+				}
+				if (numberofdice === 0){
+					this.result("x");
+				}
+				else {
+					this.result(numberofdice*4);
+				}
+			}
+		},
+		{
+			name:"All 5s",
+			result: ko.observable("   "),
+			rules: function(){
+				var numberofdice = 0;
+				for (i=0; i<self.fiveDice().length; i++){
+					if (self.fiveDice()[i].face() === 5){
+						numberofdice++;
+					}
+				}
+				if (numberofdice === 0){
+					this.result("x");
+				}
+				else {
+					this.result(numberofdice*5);
+				}
+			}
+		},
+		{
+			name:"All 6s",
+			result: ko.observable("   "),
+			rules: function(){
+				var numberofdice = 0;
+				for (i=0; i<self.fiveDice().length; i++){
+					if (self.fiveDice()[i].face() === 6){
+						numberofdice++;
+					}
+				}
+				if (numberofdice === 0){
+					this.result("x");
+				}
+				else {
+					this.result(numberofdice*6);
+				}
+			}
+		}
+	];
+	
+	this.calcScore = function(clicked){
+		clicked.rules();
+	};
 	
 
 
