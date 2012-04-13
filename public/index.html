@@ -18,6 +18,7 @@
 					<tr>
 						<th></th>
 						<th>Free</th>
+						<th>Descending</th>
 					</tr>
 				</thead>
 
@@ -26,7 +27,8 @@
 					<!-- ko foreach: freeNumbers -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<td data-bind="text: result, click: $parent.calcScore"></td>
+						<td data-bind="text: free, click: $parent.calcScore"></td>
+						<td data-bind="text: descending, click: $parent.calcScore"></td>
 					</tr>
 					<!-- /ko -->
 					<tr style="font-weight:bold;">

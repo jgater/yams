@@ -11,6 +11,8 @@ function AppViewModel() {
 			name: "All 1s",
 			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: ko.observable(this.result),
+			descending: ko.observable(this.result),
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -31,6 +33,8 @@ function AppViewModel() {
 			name: "All 2s",
 			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: ko.observable(this.result),
+			descending: ko.observable(this.result),
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -51,6 +55,8 @@ function AppViewModel() {
 			name: "All 3s",
 			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: ko.observable(this.result),
+			descending: ko.observable(this.result),
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -71,6 +77,8 @@ function AppViewModel() {
 			name: "All 4s",
 			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: ko.observable(this.result),
+			descending: ko.observable(this.result),
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -91,6 +99,8 @@ function AppViewModel() {
 			name: "All 5s",
 			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: ko.observable(this.result),
+			descending: ko.observable(this.result),
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -111,6 +121,8 @@ function AppViewModel() {
 			name: "All 6s",
 			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: ko.observable(this.result),
+			descending: ko.observable(this.result),
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
