@@ -373,33 +373,32 @@ function AppViewModel() {
 			alert("You've already picked a spot, roll the dice again!")
 		}
 	};
-	this.freeScore = function(clicked){
-		self.calcScore(clicked);
-	};
 
 	// calculates and updates sub-total of allNumbers column
 	this.allNumbersScore = ko.computed(function(){
 		var tempScore = 0;
 		for (i=0;i<self.allNumbers.length; i++){
-			if (typeof (self.allNumbers[i].result()) === "number"){
-				tempScore += self.allNumbers[i].result();
+			if (typeof (self.allNumbers[i].free.result()) === "number"){
+				tempScore += self.allNumbers[i].free.result();
 			}
 		}
 		return tempScore;
 	});
+
+
 	// calculates and updates sub-total of allCombos column
 	this.allCombosScore = ko.computed(function(){
 		var tempScore = 0;
 		for (i=0;i<self.allCombos.length; i++){
-			if (typeof (self.allCombos[i].result()) === "number"){
-				tempScore += self.allCombos[i].result();
+			if (typeof (self.allCombos[i].free.result()) === "number"){
+				tempScore += self.allCombos[i].free.result();
 			}
 		}
 		return tempScore;
 	});
 
 	// calculates and updates finalScore
-	this.freeScore = ko.computed(function(){
+	this.allScore = ko.computed(function(){
 		var tempScore = 0;
 		tempScore += self.allNumbersScore() + self.allCombosScore();
 		return tempScore;
