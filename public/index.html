@@ -39,11 +39,11 @@
 					<!-- /ko -->
 					<tr style="font-weight:bold;">
 						<td>Sub-total (60)</td>
-						<td data-bind="text: allFreeScore"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td data-bind="text: freeNumberSubTotal"></td>
+						<td data-bind="text: fallingNumberSubTotal"></td>
+						<td data-bind="text: risingNumberSubTotal"></td>
+						<td data-bind="text: announcedNumberSubTotal">></td>
+						<td data-bind="text: dryNumberSubTotal">></td>
 					</tr>
 					<tr style="font-weight:bold;">
 						<td>Bonus (30)</td>
@@ -65,23 +65,23 @@
 						<td data-bind="text: dry.result, click:$parent.dryCalc"></td>
 					</tr>
 					<!-- /ko -->
-					<tr>
+					<tr style="font-weight:bold;">
 						<td>Sub-total</td>
-						<td  data-bind="text: allFreeCombosScore"></td>
-						<td ></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td data-bind="text: freeComboSubTotal"></td>
+						<td data-bind="text: fallingComboSubTotal"></td>
+						<td data-bind="text: risingComboSubTotal"></td>
+						<td data-bind="text: announcedComboSubTotal">></td>
+						<td data-bind="text: dryComboSubTotal">></td>
 					</tr>
 
 					<!-- total score -->
 					<tr style="font-weight:bold;">
 						<td>Total</td>
-						<td data-bind="text: allFreeScore"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td data-bind="text: freeTotal"></td>
+						<td data-bind="text: fallingTotal"></td>
+						<td data-bind="text: risingTotal"></td>
+						<td data-bind="text: announcedTotal">></td>
+						<td data-bind="text: dryTotal">></td>
 					</tr>
 
 				</tbody>

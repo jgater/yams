@@ -337,6 +337,150 @@ function AppViewModel() {
 		}
 	];
 
+	this.freeNumbersArray = [];
+	this.fallingNumbersArray = [];
+	this.risingNumbersArray=[];
+	this.announcedNumbersArray = [];
+	this.dryNumbersArray = [];
+
+	this.freeCombosArray = [];
+	this.fallingCombosArray = [];
+	this.risingCombosArray=[];
+	this.announcedCombosArray = [];
+	this.dryCombosArray = [];
+
+	//populate column arrays
+	for (var i in self.allNumbers) {
+		self.freeNumbersArray.push(self.allNumbers[i].free);
+		self.fallingNumbersArray.push(self.allNumbers[i].falling);
+		self.risingNumbersArray.push(self.allNumbers[i].rising);
+		self.announcedNumbersArray.push(self.allNumbers[i].announced);
+		self.dryNumbersArray.push(self.allNumbers[i].dry);
+	}
+	for (var i in self.allCombos) {
+		self.freeCombosArray.push(self.allCombos[i].free);
+		self.fallingCombosArray.push(self.allCombos[i].falling);
+		self.risingCombosArray.push(self.allCombos[i].rising);
+		self.announcedCombosArray.push(self.allCombos[i].announced);
+		self.dryCombosArray.push(self.allCombos[i].dry);
+	}
+
+	this.freeNumberSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.freeNumbersArray){
+			if (typeof (self.freeNumbersArray[i].result()) === "number"){
+				tempScore += self.freeNumbersArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.fallingNumberSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.fallingNumbersArray) {
+			if (typeof (self.fallingNumbersArray[i].result()) === "number"){
+				tempScore += self.fallingNumbersArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.risingNumberSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.risingNumbersArray) {
+			if (typeof (self.risingNumbersArray[i].result()) === "number"){
+				tempScore += self.risingNumbersArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.announcedNumberSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.announcedNumbersArray) {
+			if (typeof (self.announcedNumbersArray[i].result()) === "number"){
+				tempScore += self.announcedNumbersArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.dryNumberSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.dryNumbersArray) {
+			if (typeof (self.dryNumbersArray[i].result()) === "number"){
+				tempScore += self.dryNumbersArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+
+
+	// calculate combos subtotals
+
+	this.freeComboSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.freeCombosArray) {
+			if (typeof (self.freeCombosArray[i].result()) === "number"){
+				tempScore += self.freeCombosArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.fallingComboSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.fallingCombosArray) {
+			if (typeof (self.fallingCombosArray[i].result()) === "number"){
+				tempScore += self.fallingCombosArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.risingComboSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.risingCombosArray) {
+			if (typeof (self.risingCombosArray[i].result()) === "number"){
+				tempScore += self.risingCombosArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.announcedComboSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.announcedCombosArray) {
+			if (typeof (self.announcedCombosArray[i].result()) === "number"){
+				tempScore += self.announcedCombosArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+	this.dryComboSubTotal = ko.computed(function() {
+		var tempScore = 0;
+		for (var i in self.dryCombosArray) {
+			if (typeof (self.dryCombosArray[i].result()) === "number"){
+				tempScore += self.dryCombosArray[i].result();
+			}
+		}
+		return tempScore;
+	});
+
+
+	//totals
+	this.freeTotal = ko.computed(function() {
+		return self.freeNumberSubTotal() + self.freeComboSubTotal();
+	});
+	this.fallingTotal = ko.computed(function() {
+		return self.fallingNumberSubTotal() + self.fallingComboSubTotal();
+	});
+	this.risingTotal = ko.computed(function() {
+		return self.risingNumberSubTotal() + self.risingComboSubTotal();
+	});
+	this.announcedTotal = ko.computed(function() {
+		return self.announcedNumberSubTotal() + self.announcedComboSubTotal();
+	});
+	this.dryTotal = ko.computed(function() {
+		return self.dryNumberSubTotal() + self.dryComboSubTotal();
+	});
+
+
+
+
 
 
 	//Rolling the dice once
@@ -350,19 +494,11 @@ function AppViewModel() {
   		this.face = ko.observable(0);
   		this.reroll = ko.observable(true);
 	}
-
-	// creates 5 dies objects
-	this.die1 = new Die("die1");
-	this.die2 = new Die("die2");
-	this.die3 = new Die("die3");
-	this.die4 = new Die("die4");
-	this.die5 = new Die ("die5");
 	
-	//declares array for storing 5 dies
+	//creates array with 5 dice objects
 	this.fiveDice = ko.observableArray([
-    	self.die1, self.die2, self.die3, self.die4, self.die5
+    	new Die("die1"), new Die("die2"), new Die("die3"), new Die("die4"), new Die("die5")
     ]);
-	//populates array with 5 dies
 
 
 	//gives a face value to all dice
@@ -371,7 +507,7 @@ function AppViewModel() {
 			if (self.fiveDice()[i].reroll() === true){
 				var temp = self.rollSingleDice(); //gets a number from function
       			self.fiveDice()[i].face(temp);//assigns that new value to die
-      			//parsing temp as variable to method ko.observable
+      			//pass temp as variable to method ko.observable
 			}
 		};
 		self.scoreCalculated = false;
@@ -391,103 +527,55 @@ function AppViewModel() {
 	
 	// create free calcscore
 	this.freeCalc = function(clicked){
-		if (clicked.free.isSet() === false){
-			self.calcScore(clicked);
-			clicked.free.isSet(true);
-			clicked.free.result(clicked.result());
-		}	
-		else {
-				alert("You have already picked that number");
-			}
+		self.calcScore(clicked,"free");
 	};
 	//create falling calcscore
 	this.fallingCalc = function(clicked){		
-		if (clicked.falling.isSet() === false){
-			self.calcScore(clicked);
-			clicked.falling.isSet(true);
-			clicked.falling.result(clicked.result());
-		}	
-		else {
-				alert("You have already picked that number");
-			}
+		self.calcScore(clicked,"falling");
 	};
 
 	//create rising calcscore
 	this.risingCalc = function(clicked){		
-		if (clicked.rising.isSet() === false){
-			self.calcScore(clicked);
-			clicked.rising.isSet(true);
-			clicked.rising.result(clicked.result());
-		}	
-		else {
-				alert("You have already picked that number");
-			}
+		self.calcScore(clicked,"rising");
 	};
 
 	//create announced calcscore
 	this.announcedCalc = function(clicked){		
-		if (clicked.announced.isSet() === false){
-			self.calcScore(clicked);
-			clicked.announced.isSet(true);
-			clicked.announced.result(clicked.result());
-		}	
-		else {
-				alert("You have already picked that number");
-			}
+		self.calcScore(clicked,"announced");
 	};
 
 	//create dry calcscore
 	this.dryCalc = function(clicked){		
-		if (clicked.dry.isSet() === false){
-			self.calcScore(clicked);
-			clicked.dry.isSet(true);
-			clicked.dry.result(clicked.result());
-		}	
-		else {
-				alert("You have already picked that number");
-			}
+		self.calcScore(clicked,"dry");
 	};
 
 	//Applies rules of calculation of score for individual cells
-	this.calcScore = function(clicked){
+	this.calcScore = function(clicked,column){
+		// if you've not already added a score to a table cell
 		if (self.scoreCalculated === false){
-			clicked.rules();
-			self.scoreCalculated = true;
+			// and if that table cell has not yet been clicked on
+			if (clicked[column].isSet() === false){
+				// then mark that cell as being set
+				clicked[column].isSet(true);
+				// calculate the score by the rules of that cell from fiveDice, put into result
+				clicked.rules();
+				// put the calculated result into the cell result
+				clicked[column].result(clicked.result());
+				// set that we've already clicked a cell this turn
+				self.scoreCalculated = true;
+			}	
+			else {
+				alert("You have already picked that number");
+			}		
 		}
 		else {
 			alert("You've already picked a spot, roll the dice again!")
 		}
 	};
 
-	// calculates and updates sub-total of allNumbers column
-	this.allFreeScore = ko.computed(function(){
-		var tempScore = 0;
-		for (i=0;i<self.allNumbers.length; i++){
-			if (typeof (self.allNumbers[i].free.result()) === "number"){
-				tempScore += self.allNumbers[i].free.result();
-			}
-		}
-		return tempScore;
-	});
 
 
-	// calculates and updates sub-total of allCombos column
-	this.allFreeCombosScore = ko.computed(function(){
-		var tempScore = 0;
-		for (i=0;i<self.allCombos.length; i++){
-			if (typeof (self.allCombos[i].free.result()) === "number"){
-				tempScore += self.allCombos[i].free.result();
-			}
-		}
-		return tempScore;
-	});
 
-	// calculates and updates finalScore
-	this.allFreeScore = ko.computed(function(){
-		var tempScore = 0;
-		tempScore += self.allFreeScore() + self.allFreeCombosScore();
-		return tempScore;
-	});
 
 
 // end of appviewmodel
