@@ -158,10 +158,10 @@ var rulesArray = [
 		var freeDice = self.sortedDice();
 		this.result("x");
 		var i = 4;
-		if (freeDice[i] === freeDice[i-1]){
+		if (freeDice[i] === freeDice[i-3]){
 			this.result(freeDice[i]*4);
 		}
-		else if (freeDice[i-1] === freeDice[i-2]){
+		else if (freeDice[i-1] === freeDice[i-4]){
 			this.result(freeDice[i-1]*4);
 		}
 	},
@@ -206,7 +206,7 @@ this.names = [
 	"All 5s",
 	"All 6s",
 	"One pair",
-	"Two pair",
+	"Double pair",
 	"Triple",
 	"Full house",
 	"Square",
@@ -311,6 +311,7 @@ this.names = [
 		self.dry.push( new td(rule) );
 	}	
 
+self.rollFiveDice();
 // end of appviewmodel
 }
 
