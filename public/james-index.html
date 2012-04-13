@@ -12,48 +12,40 @@
 <body>
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="span7">
-			<table class="table table-bordered">
+		<div class="span6">
+			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
 						<th></th>
-						<th>Free</th>
+						<th width="15%" align="center">Free</th>
+						<th width="15%">Falling</th>
+						<th width="15%">Rising</th>
+						<th width="15%">Announced</th>
+						<th width="15%">Dry</th>
 					</tr>
 				</thead>
-
 				<tbody>
-					<!-- numbers -->
-					<!-- ko foreach: freeNumbers -->
+					<!-- ko foreach: numberTable -->
 					<tr>
-						<td data-bind="text: name"></td>
-						<td data-bind="text: result, click: $parent.calcScore"></td>
-					</tr>
-					<!-- /ko -->
-					<tr style="font-weight:bold;">
-						<td>Sub-total (60)</td>
-						<td data-bind="text: freeNumbersScore"></td>
-					</tr>
-					<tr style="font-weight:bold;">
-						<td>Bonus (30)</td>
-						<td></td>
-					</tr>
-
-					<!-- combos -->
-					<!-- ko foreach: freeCombos -->
-					<tr>
-						<td data-bind="text: name"></td>
-						<td data-bind="text: result, click: $parent.calcScore"></td>
+						<td data-bind="text:$root.numbers[ $index() ]"></td>
+						<!-- ko foreach: $data -->
+						<td data-bind="text:result, click: $root.calcScore"></td>
+						<!-- /ko -->
 					</tr>
 					<!-- /ko -->
 					<tr>
-						<td>Sub-total</td>
-						<td  data-bind="text: freeCombosScore"></td>
+						<td colspan="6">Sub scores go here</td>
 					</tr>
-
-					<!-- total score -->
-					<tr style="font-weight:bold;">
-						<td>Total</td>
-						<td  data-bind="text: freeScore"></td>
+					<!-- ko foreach: comboTable -->
+					<tr>
+						<td data-bind="text:$root.combos[ $index() ]"></td>
+						<!-- ko foreach: $data -->
+						<td data-bind="text:result, click: $root.calcScore"></td>
+						<!-- /ko -->
+					</tr>
+					<!-- /ko -->
+					<tr>
+						<td colspan="6">Final scores go here</td>
 					</tr>
 
 				</tbody>
@@ -61,7 +53,7 @@
 
 		</div> <!-- end column -->
 	
-		<div class="span5">
+		<div class="span6">
 			<!-- table to display dice values-->
 			<table class="table" >
 				<thead>
@@ -71,7 +63,8 @@
 				</thead>
 				<tbody>
 					<tr data-bind="foreach: fiveDice">
-						<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }"/></td>
+						<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }"/></td>  
+
 					</tr>
 				</tbody>
 			</table>
@@ -82,6 +75,6 @@
 	</div> <!-- end row div -->
 </div> <!-- end container div -->
 
-<script type='text/javascript' src='/js/appviewmodel.js'></script>
+<script type='text/javascript' src='/js/james-appviewmodel.js'></script>
 </body>
 </html>
