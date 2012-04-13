@@ -11,7 +11,7 @@ var td = function(rule) {
 	this.rules = rule;
 };
 	//array for all the rules in the game
-var rulesArray = [
+var numberRules = [
 	//this for all 1s
 	function(){
 		var numberofdice = 0;
@@ -102,7 +102,10 @@ var rulesArray = [
 		else {
 			this.result(numberofdice*6);
 		}
-	},
+	}
+]
+
+var comboRules = [
 	// One pair
 	function(){
 		var freeDice = self.sortedDice();
@@ -198,13 +201,16 @@ var rulesArray = [
 	}
 ];
 
-this.names = [
+this.numbers = [
 	"All 1s",
 	"All 2s",
 	"All 3s",
 	"All 4s",
 	"All 5s",
-	"All 6s",
+	"All 6s"
+];
+
+this.combos = [
 	"One pair",
 	"Double pair",
 	"Triple",
@@ -295,21 +301,21 @@ this.names = [
 		}
 	};
 
-	// arrays of column objects	
-	this.free = [];
-	this.descend = [];
-	this.ascend = [];
-	this.announce = [];
-	this.dry = [];
-	for (i in rulesArray) {
-		// for each rule in rulesArray, create a new set of table data objects, and link them to that rule
-		var rule = rulesArray[i];
-		self.free.push( new td(rule) );
-		self.descend.push( new td(rule) );
-		self.ascend.push( new td(rule) );
-		self.announce.push( new td(rule) );
-		self.dry.push( new td(rule) );
-	}	
+	this.numberTable = [];
+	this.comboTable = [];
+	for (i in numberRules) {
+		// for each rule in numberRules, create a new row of table data objects, and link them to that rule
+		var rule = numberRules[i];
+		var row = [ new td(rule), new td(rule), new td(rule), new td(rule), new td(rule) ];
+		self.numberTable.push( row );
+	}
+	for (i in comboRules) {
+		// for each rule in comboRules, create a new row of table data objects, and link them to that rule
+		var rule = comboRules[i];
+		var row = [ new td(rule), new td(rule), new td(rule), new td(rule), new td(rule) ];
+		self.comboTable.push( row );
+	}
+
 
 self.rollFiveDice();
 // end of appviewmodel

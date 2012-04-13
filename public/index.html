@@ -18,23 +18,36 @@
 					<tr>
 						<th></th>
 						<th width="15%" align="center">Free</th>
-						<th width="15%">Descend</th>
-						<th width="15%">Ascend</th>
+						<th width="15%">Falling</th>
+						<th width="15%">Rising</th>
 						<th width="15%">Announced</th>
 						<th width="15%">Dry</th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- ko foreach: names -->
+					<!-- ko foreach: numberTable -->
 					<tr>
-						<td data-bind="text:$data"></td>
-						<td data-bind="text:$parent.free[$index()].result, click: function() {$parent.calcScore($parent.free[$index()])}"></td>
-						<td data-bind="text:$parent.descend[$index()].result, click: function() {$parent.calcScore($parent.descend[$index()])}"></td>
-						<td data-bind="text:$parent.ascend[$index()].result, click: function() {$parent.calcScore($parent.ascend[$index()])}"></td>
-						<td data-bind="text:$parent.announce[$index()].result, click: function() {$parent.calcScore($parent.announce[$index()])}"></td>
-						<td data-bind="text:$parent.dry[$index()].result, click: function() {$parent.calcScore($parent.dry[$index()])}"></td>
+						<td data-bind="text:$root.numbers[ $index() ]"></td>
+						<!-- ko foreach: $data -->
+						<td data-bind="text:result, click: $root.calcScore"></td>
+						<!-- /ko -->
 					</tr>
 					<!-- /ko -->
+					<tr>
+						<td colspan="6">Sub scores go here</td>
+					</tr>
+					<!-- ko foreach: comboTable -->
+					<tr>
+						<td data-bind="text:$root.combos[ $index() ]"></td>
+						<!-- ko foreach: $data -->
+						<td data-bind="text:result, click: $root.calcScore"></td>
+						<!-- /ko -->
+					</tr>
+					<!-- /ko -->
+					<tr>
+						<td colspan="6">Final scores go here</td>
+					</tr>
+
 				</tbody>
 			</table>
 
