@@ -139,8 +139,9 @@ function AppViewModel() {
 		// One pair
 		{
 			name: "One pair",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
@@ -155,29 +156,37 @@ function AppViewModel() {
 		//double pair
 		{
 			name: "Double pair",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
 				var tempresult = 0;
 				var doubles= 0;
-				for (var i=freeDice.length; i>=0; i--){
+				for (var i=freeDice.length-1; i>=0; i--){
 					if (doubles<2){
 						if (freeDice[i] === freeDice[i-1]){
 							doubles++;
 							tempresult += freeDice[i]*2;
+							i--;
 						}
 					}
-					this.result(tempresult);
+					if (doubles === 0 || doubles === 1){
+						this.result("x");
+					}
+					else if (doubles === 2){
+						this.result(tempresult);
+					}
 				}
 			}
 		},
 		// three of a kind
 		{
 			name: "Three of a kind",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
@@ -192,8 +201,9 @@ function AppViewModel() {
 	    //Full house
 	    {
 	    	name: "Full house",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
@@ -209,8 +219,9 @@ function AppViewModel() {
 		//Square
 		{
 			name: "Square",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: 
 			function(){
 				var freeDice = self.sortedDice();
@@ -227,8 +238,9 @@ function AppViewModel() {
 		//Flush
 		{
 			name: "Flush",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
@@ -244,8 +256,9 @@ function AppViewModel() {
 		//Small Chance
 		{
 			name: "Small Chance",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
@@ -254,8 +267,9 @@ function AppViewModel() {
 		//Big Chance
 		{
 			name: "Big Chance",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
@@ -264,11 +278,12 @@ function AppViewModel() {
 		//Yam
 		{
 			name: "Yam",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
-				this.result("x");
+				this.result("x");n
 				var i = 4;
 				if (freeDice[i] === freeDice[i-4]){
 					this.result(freeDice[i]*5);
@@ -283,32 +298,21 @@ function AppViewModel() {
 	this.rollSingleDice = function(){
     	return Math.floor(Math.random()*6+1);
 	};
+
+	// creates dice constructor
+	function Die(name) {
+ 		this.name = name;
+  		this.face = ko.observable(0);
+  		this.reroll = ko.observable(true);
+	}
+
 	// creates 5 dies objects
-	this.die1 ={
-		name: "die1",
-		face: ko.observable(0),
-		reroll: ko.observable(true)
-	};
-	this.die2 ={
-		name: "die2",
-		face: ko.observable(0),
-		reroll: ko.observable(true)
-	};
-	this.die3 ={
-		name: "die3",
-		face: ko.observable(0),
-		reroll: ko.observable(true)
-	};
-	this.die4 ={
-		name:"die4",
-		face: ko.observable(0),
-		reroll: ko.observable(true)
-	};
-	this.die5 ={
-		name:"die5",
-		face: ko.observable(0),
-		reroll: ko.observable(true)
-	};
+	this.die1 = new Die("die1");
+	this.die2 = new Die("die2");
+	this.die3 = new Die("die3");
+	this.die4 = new Die("die4");
+	this.die5 = new Die ("die5");
+	
 	//declares array for storing 5 dies
 	this.fiveDice = ko.observableArray([
     	self.die1, self.die2, self.die3, self.die4, self.die5

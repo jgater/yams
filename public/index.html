@@ -46,8 +46,8 @@
 					<!-- ko foreach: allCombos -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<td data-bind="text: result, click: $parent.calcScore"></td>
-						<td></td>
+						<td data-bind="text: free.result, click: $parent.freeCalc"></td>
+						<td data-bind="text: falling.result, click:$parent.fallingCalc"></td>
 					</tr>
 					<!-- /ko -->
 					<tr>
