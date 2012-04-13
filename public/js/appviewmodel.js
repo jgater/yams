@@ -11,6 +11,7 @@ function AppViewModel() {
 			name: "All 1s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -31,6 +32,7 @@ function AppViewModel() {
 			name: "All 2s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -49,10 +51,9 @@ function AppViewModel() {
 		//all 3s
 		{
 			name: "All 3s",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
-			free: ko.observable(this.result),
-			descending: ko.observable(this.result),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -71,10 +72,9 @@ function AppViewModel() {
 		//all 4s
 		{
 			name: "All 4s",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
-			free: ko.observable(this.result),
-			descending: ko.observable(this.result),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -93,10 +93,9 @@ function AppViewModel() {
 		//all 5s
 		{
 			name: "All 5s",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
-			free: ko.observable(this.result),
-			descending: ko.observable(this.result),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -115,10 +114,9 @@ function AppViewModel() {
 		//all 6s
 		{
 			name: "All 6s",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
-			free: ko.observable(this.result),
-			descending: ko.observable(this.result),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -353,7 +351,17 @@ function AppViewModel() {
 				alert("You have already picked that number");
 			}
 	};
-
+	//create falling calcscore
+	this.fallingCalc = function(clicked){		
+		if (clicked.falling.isSet() === false){
+			self.calcScore(clicked);
+			clicked.falling.isSet(true);
+			clicked.falling.result(clicked.result());
+		}	
+		else {
+				alert("You have already picked that number");
+			}
+	};
 
 	//Applies rules of calculation of score for individual cells
 	this.calcScore = function(clicked){

@@ -18,6 +18,7 @@
 					<tr>
 						<th></th>
 						<th>Free</th>
+						<th>Falling</th>
 					</tr>
 				</thead>
 
@@ -27,6 +28,7 @@
 					<tr>
 						<td data-bind="text: name"></td>
 						<td data-bind="text: free.result, click: $parent.freeCalc"></td>
+						<td data-bind="text: falling.result, click:$parent.fallingCalc"></td>
 					</tr>
 					<!-- /ko -->
 					<tr style="font-weight:bold;">
