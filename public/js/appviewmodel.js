@@ -5,14 +5,12 @@ function AppViewModel() {
 	var self = this;
 
 	//array of objects, for the numbers part of the free column
-	this.freeNumbers = [
+	this.allNumbers = [
 		//this for all 1s
 		{
 			name: "All 1s",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
-			free: ko.observable(this.result),
-			descending: ko.observable(this.result),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -31,10 +29,8 @@ function AppViewModel() {
 		//all 2s
 		{
 			name: "All 2s",
-			isSet: ko.observable(false),
 			result: ko.observable(" "),
-			free: ko.observable(this.result),
-			descending: ko.observable(this.result),
+			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
 				for (i=0; i<self.fiveDice().length; i++){
@@ -141,7 +137,7 @@ function AppViewModel() {
 	];
 
 	//array of objects, for the combos part of the free column
-	this.freeCombos = [
+	this.allCombos = [
 		// One pair
 		{
 			name: "One pair",
@@ -346,39 +342,49 @@ function AppViewModel() {
 	//stops clicking on several numbers at one rollDice
 	this.scoreCalculated = true;
 	
+	// create free calcscore
+	this.freeCalc = function(clicked){
+		if (clicked.free.isSet() === false){
+			self.calcScore(clicked);
+			clicked.free.isSet(true);
+			clicked.free.result(clicked.result());
+		}	
+		else {
+				alert("You have already picked that number");
+			}
+	};
+
+
 	//Applies rules of calculation of score for individual cells
 	this.calcScore = function(clicked){
 		if (self.scoreCalculated === false){
-			if (clicked.isSet() === false){
-				clicked.rules();
-				clicked.isSet(true);
-				self.scoreCalculated = true;
-			}
-			else {
-				alert("You have already picked that number");
-			}
+			clicked.rules();
+			self.scoreCalculated = true;
 		}
 		else {
 			alert("You've already picked a spot, roll the dice again!")
 		}
 	};
+	this.freeScore = function(clicked){
+		self.calcScore(clicked);
+	};
 
-	// calculates and updates sub-total of freeNumbers column
-	this.freeNumbersScore = ko.computed(function(){
+	// calculates and updates sub-total of allNumbers column
+	this.allNumbersScore = ko.computed(function(){
 		var tempScore = 0;
-		for (i=0;i<self.freeNumbers.length; i++){
-			if (typeof (self.freeNumbers[i].result()) === "number"){
-				tempScore += self.freeNumbers[i].result();
+		for (i=0;i<self.allNumbers.length; i++){
+			if (typeof (self.allNumbers[i].result()) === "number"){
+				tempScore += self.allNumbers[i].result();
 			}
 		}
 		return tempScore;
 	});
-	// calculates and updates sub-total of freeCombos column
-	this.freeCombosScore = ko.computed(function(){
+	// calculates and updates sub-total of allCombos column
+	this.allCombosScore = ko.computed(function(){
 		var tempScore = 0;
-		for (i=0;i<self.freeCombos.length; i++){
-			if (typeof (self.freeCombos[i].result()) === "number"){
-				tempScore += self.freeCombos[i].result();
+		for (i=0;i<self.allCombos.length; i++){
+			if (typeof (self.allCombos[i].result()) === "number"){
+				tempScore += self.allCombos[i].result();
 			}
 		}
 		return tempScore;
@@ -387,7 +393,7 @@ function AppViewModel() {
 	// calculates and updates finalScore
 	this.freeScore = ko.computed(function(){
 		var tempScore = 0;
-		tempScore += self.freeNumbersScore() + self.freeCombosScore();
+		tempScore += self.allNumbersScore() + self.allCombosScore();
 		return tempScore;
 	});
 

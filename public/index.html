@@ -18,22 +18,20 @@
 					<tr>
 						<th></th>
 						<th>Free</th>
-						<th>Descending</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<!-- numbers -->
-					<!-- ko foreach: freeNumbers -->
+					<!-- ko foreach: allNumbers -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<td data-bind="text: free, click: $parent.calcScore"></td>
-						<td data-bind="text: descending, click: $parent.calcScore"></td>
+						<td data-bind="text: free.result, click: $parent.freeCalc"></td>
 					</tr>
 					<!-- /ko -->
 					<tr style="font-weight:bold;">
 						<td>Sub-total (60)</td>
-						<td data-bind="text: freeNumbersScore"></td>
+						<td data-bind="text: allNumbersScore"></td>
 					</tr>
 					<tr style="font-weight:bold;">
 						<td>Bonus (30)</td>
@@ -41,7 +39,7 @@
 					</tr>
 
 					<!-- combos -->
-					<!-- ko foreach: freeCombos -->
+					<!-- ko foreach: allCombos -->
 					<tr>
 						<td data-bind="text: name"></td>
 						<td data-bind="text: result, click: $parent.calcScore"></td>
@@ -49,7 +47,7 @@
 					<!-- /ko -->
 					<tr>
 						<td>Sub-total</td>
-						<td  data-bind="text: freeCombosScore"></td>
+						<td  data-bind="text: allCombosScore"></td>
 					</tr>
 
 					<!-- total score -->
