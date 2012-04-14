@@ -39,19 +39,19 @@
 					<!-- /ko -->
 					<tr style="font-weight:bold;">
 						<td>Sub-total (60)</td>
-						<td data-bind="text: freeNumberSubTotal"></td>
-						<td data-bind="text: fallingNumberSubTotal"></td>
-						<td data-bind="text: risingNumberSubTotal"></td>
-						<td data-bind="text: announcedNumberSubTotal">></td>
-						<td data-bind="text: dryNumberSubTotal">></td>
+						<td data-bind="text: allNbRSubTotal[0]"></td>
+						<td data-bind="text: allNbRSubTotal[1]"></td>
+						<td data-bind="text: allNbRSubTotal[2]"></td>
+						<td data-bind="text: allNbRSubTotal[3]">></td>
+						<td data-bind="text: allNbRSubTotal[4]">></td>
 					</tr>
 					<tr style="font-weight:bold;">
 						<td>Bonus (30)</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td data-bind = "text:allNumbersBonus"></td>
+						<td data-bind = "text:allNumbersBonus"></td>
+						<td data-bind = "text:allNumbersBonus"></td>
+						<td data-bind = "text:allNumbersBonus"></td>
+						<td data-bind = "text:allNumbersBonus"></td>
 					</tr>
 
 					<!-- combos -->
@@ -67,21 +67,21 @@
 					<!-- /ko -->
 					<tr style="font-weight:bold;">
 						<td>Sub-total</td>
-						<td data-bind="text: freeComboSubTotal"></td>
-						<td data-bind="text: fallingComboSubTotal"></td>
-						<td data-bind="text: risingComboSubTotal"></td>
-						<td data-bind="text: announcedComboSubTotal">></td>
-						<td data-bind="text: dryComboSubTotal">></td>
+						<td data-bind="text: allCombosSubTotal()[0]"></td>
+						<td data-bind="text: allCombosSubTotal()[1]"></td>
+						<td data-bind="text: allCombosSubTotal()[2]"></td>
+						<td data-bind="text: allCombosSubTotal()[3]">></td>
+						<td data-bind="text: allCombosSubTotal()[4]">></td>
 					</tr>
 
 					<!-- total score -->
 					<tr style="font-weight:bold;">
 						<td>Total</td>
-						<td data-bind="text: freeTotal"></td>
-						<td data-bind="text: fallingTotal"></td>
-						<td data-bind="text: risingTotal"></td>
-						<td data-bind="text: announcedTotal">></td>
-						<td data-bind="text: dryTotal">></td>
+						<td data-bind="text: allTotalsArray()[0]"></td>
+						<td data-bind="text: allTotalsArray()[1]"></td>
+						<td data-bind="text: allTotalsArray()[2]"></td>
+						<td data-bind="text: allTotalsArray()[3]">></td>
+						<td data-bind="text: allTotalsArray()[4]">></td>
 					</tr>
 
 				</tbody>
