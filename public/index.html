@@ -30,12 +30,18 @@
 					<!-- ko foreach: allNumbers -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<td data-bind="text: free.result, click: $parent.freeCalc"></td>
-						<td data-bind="text: falling.result, click:$parent.fallingCalc"></td>
-						<td data-bind="text: rising.result, click:$parent.risingCalc"></td>
-						<td data-bind="text: announced.result, click:$parent.announcedCalc"></td>
-						<td data-bind="text: dry.result, click:$parent.dryCalc"></td>
-					</tr>
+						<td data-bind="text: free.result, click: $parent.freeCalc, style:{backgroundColor:free.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						<td data-bind="text: falling.result, click:$parent.fallingCalc, style:{backgroundColor:falling.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						<td data-bind="text: rising.result, click:$parent.risingCalc, style:{backgroundColor:rising.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						<td data-bind="text: announced.result, click:$parent.announcedCalc, style:{backgroundColor:announced.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						
+				<!-- ko ifnot: dry.isSet   -->			
+						<td data-bind="text: dry.result, click:$parent.dryCalc, style:{backgroundColor:$parent.rollcounter()>= 2 ? '#CCFFCC' : 'white'}"></td>
+				<!-- /ko -->
+				<!-- ko if: dry.isSet  -->	
+						<td data-bind="text: dry.result, click:$parent.dryCalc, style:{backgroundColor:'white'}"></td>
+				<!-- /ko -->
+						</tr>
 					<!-- /ko -->
 					<tr style="font-weight:bold;">
 						<td>Sub-total (60)</td>
@@ -60,11 +66,11 @@
 					<!-- ko foreach: allCombos -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<td data-bind="text: free.result, click: $parent.freeCalc"></td>
-						<td data-bind="text: falling.result, click:$parent.fallingCalc"></td>
-						<td data-bind="text: rising.result, click:$parent.risingCalc"></td>
-						<td data-bind="text: announced.result, click:$parent.announcedCalc"></td>
-						<td data-bind="text: dry.result, click:$parent.dryCalc"></td>
+						<td data-bind="text: free.result, click: $parent.freeCalc, style:{backgroundColor:free.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						<td data-bind="text: falling.result, click:$parent.fallingCalc, style:{backgroundColor:falling.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						<td data-bind="text: rising.result, click:$parent.risingCalc, style:{backgroundColor:rising.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						<td data-bind="text: announced.result, click:$parent.announcedCalc, style:{backgroundColor:announced.isSet() === false ? '#CCFFCC' : 'white'}"></td>
+						<td data-bind="text: dry.result, click:$parent.dryCalc, style:{backgroundColor:$parent.rollcounter()>= 2 ? '#CCFFCC' : 'white'}"></td>
 					</tr>
 					<!-- /ko -->
 

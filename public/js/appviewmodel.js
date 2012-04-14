@@ -369,11 +369,11 @@ function AppViewModel() {
 
 	//CALCULATE NUMBERS SUBTOTAL
 	this.allNbRSubTotal = [];
-	this.allNbRSubTotal[0]=ko.observable(1);
-	this.allNbRSubTotal[1]=ko.observable(2);
-	this.allNbRSubTotal[2]=ko.observable(3);
-	this.allNbRSubTotal[3]=ko.observable(4);
-	this.allNbRSubTotal[4]=ko.observable(5);
+	this.allNbRSubTotal[0]=ko.observable(0);
+	this.allNbRSubTotal[1]=ko.observable(0);
+	this.allNbRSubTotal[2]=ko.observable(0);
+	this.allNbRSubTotal[3]=ko.observable(0);
+	this.allNbRSubTotal[4]=ko.observable(0);
 
 	// allNumbersResults [ [{result, isset},{result},{result},{result},{result}], [], [], [], [] ];
 	// allNumbersResults[0] = [{result},{},{},{},{}]
@@ -415,11 +415,11 @@ function AppViewModel() {
 
 	//calculate combos subtotal
 	this.allCombosSubTotal = [];
-	this.allCombosSubTotal[0] = ko.observable(1);
-	this.allCombosSubTotal[1] = ko.observable(2);
-	this.allCombosSubTotal[2] = ko.observable(3);
-	this.allCombosSubTotal[3] = ko.observable(4);
-	this.allCombosSubTotal[4] = ko.observable(5);
+	this.allCombosSubTotal[0] = ko.observable(0);
+	this.allCombosSubTotal[1] = ko.observable(0);
+	this.allCombosSubTotal[2] = ko.observable(0);
+	this.allCombosSubTotal[3] = ko.observable(0);
+	this.allCombosSubTotal[4] = ko.observable(0);
 
 	this.calcACRScores = function(){
 		for (i=0; i<5;i++){
@@ -495,7 +495,7 @@ function AppViewModel() {
 
 	// Updates numbers of rolls
 	this.rollbuttontext = ko.computed(function(){
-		return "Roll my dice (" + self.rollcounter() +" )";
+		return "Roll my dice (" + self.rollcounter() +")";
 	});
 
 	//Creating a duplicate dice array to sort values
@@ -507,8 +507,6 @@ function AppViewModel() {
 		return freeDice.sort();
 	};
 
-
-	//NEEDS UPDATING --> every time roll Dice, once picked a number, can write in another cell
 	//stops clicking on several numbers at one rollDice
 	this.scoreCalculated = true;
 	
@@ -516,9 +514,18 @@ function AppViewModel() {
 	this.freeCalc = function(clicked){
 		self.calcScore(clicked,"free");
 	};
-	//create falling calcscore
-	this.fallingCalc = function(clicked){		
-		self.calcScore(clicked,"falling");
+	//create falling calcscore  ---ATM PREVENTS ANY CLICKING
+	this.fallingCalc = function(clicked){	
+		console.log(clicked["falling"].isSet());
+		// if the previous isSet has been clicked  NOT WORKING NOT WORKING NOT WORKING
+		if (clicked["falling"].isSet() === false){
+			//then go to calcScore
+			self.calcScore(clicked,"falling");
+		}
+		//else alert you can't put your result here
+		else{
+			alert("You can't put your result here.");
+		}
 	};
 
 	//create rising calcscore
@@ -528,12 +535,23 @@ function AppViewModel() {
 
 	//create announced calcscore
 	this.announcedCalc = function(clicked){		
-		self.calcScore(clicked,"announced");
+		if (self.rollcounter()===2){
+			self.calcScore(clicked,"announced");
+		}
+		else{
+			alert("You can't put your result here.");
+		}
 	};
+
 
 	//create dry calcscore
 	this.dryCalc = function(clicked){		
-		self.calcScore(clicked,"dry");
+		if (self.rollcounter()===2){
+			self.calcScore(clicked,"dry");
+		}
+		else{
+			alert("You can't put your result here.");
+		}
 	};
 
 	//Applies rules of calculation of score for individual cells
@@ -544,6 +562,12 @@ function AppViewModel() {
 			if (clicked[column].isSet() === false){
 				// then mark that cell as being set
 				clicked[column].isSet(true);
+				var temp = column;
+				if (column === "announced"){
+					//allow reroll????????????????????????????????????????????????????????????????????????????????????
+				}
+				else{
+		
 				// calculate the score by the rules of that cell from fiveDice, put into result
 				clicked.rules();
 				// put the calculated result into the cell result
@@ -561,7 +585,7 @@ function AppViewModel() {
 				for (i=0; i<5;i++){
 					self.fiveDice()[i].reroll(true);
 				}
-				
+				}
 
 			}	
 			else {
@@ -576,7 +600,7 @@ function AppViewModel() {
 
 
 
-
+	
 
 // end of appviewmodel
 }
