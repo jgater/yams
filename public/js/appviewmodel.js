@@ -11,7 +11,7 @@ function AppViewModel() {
 			name: "All 1s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(true)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -35,7 +35,7 @@ function AppViewModel() {
 			name: "All 2s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable("")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -59,7 +59,7 @@ function AppViewModel() {
 			name: "All 3s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -83,7 +83,7 @@ function AppViewModel() {
 			name: "All 4s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -107,7 +107,7 @@ function AppViewModel() {
 			name: "All 5s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -131,7 +131,7 @@ function AppViewModel() {
 			name: "All 6s",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -159,7 +159,7 @@ function AppViewModel() {
 			name: "One pair",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -179,7 +179,7 @@ function AppViewModel() {
 			name: "Double pair",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -210,7 +210,7 @@ function AppViewModel() {
 			name: "Three of a kind",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -218,19 +218,19 @@ function AppViewModel() {
 				var freeDice = self.sortedDice();
 				this.result("x");
 				for (var i = freeDice.length; i > 0 ; i--) {
-	    			if ( freeDice[i] === freeDice[i-1] && freeDice[i] === freeDice[i-2] ) {
-	    				this.result(freeDice[i]*3);
-	    				break;
-	    			}
-	    		}
-	    	}
-	    },
-	    //Full house
-	    {
-	    	name: "Full house",
+						if ( freeDice[i] === freeDice[i-1] && freeDice[i] === freeDice[i-2] ) {
+							this.result(freeDice[i]*3);
+							break;
+						}
+					}
+				}
+			},
+			//Full house
+			{
+				name: "Full house",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -251,7 +251,7 @@ function AppViewModel() {
 			name: "Square",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -273,7 +273,7 @@ function AppViewModel() {
 			name: "Flush",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -294,7 +294,7 @@ function AppViewModel() {
 			name: "Small Chance",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -308,7 +308,7 @@ function AppViewModel() {
 			name: "Big Chance",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -322,7 +322,7 @@ function AppViewModel() {
 			name: "Yam",
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
-			falling: {isSet:ko.observable(false), result:ko.observable(" ")},
+			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
@@ -448,20 +448,20 @@ function AppViewModel() {
 
 	//Rolling the dice once
 	this.rollSingleDice = function(){
-    	return Math.floor(Math.random()*6+1);
+			return Math.floor(Math.random()*6+1);
 	};
 
 	// creates dice constructor
 	function Die(name) {
- 		this.name = name;
-  		this.face = ko.observable(0);
-  		this.reroll = ko.observable(true);
-  	}
+		this.name = name;
+			this.face = ko.observable(0);
+			this.reroll = ko.observable(true);
+		}
 	
 	//creates array with 5 dice objects
 	this.fiveDice = ko.observableArray([
-    	new Die("die1"), new Die("die2"), new Die("die3"), new Die("die4"), new Die("die5")
-    ]);
+			new Die("die1"), new Die("die2"), new Die("die3"), new Die("die4"), new Die("die5")
+		]);
 
 	// Controls the number of times rollFiveDice has been activated
 	this.rollcounter = ko.observable(3);
@@ -472,8 +472,8 @@ function AppViewModel() {
 				for (i=0; i<5; i++) {
 				if (self.fiveDice()[i].reroll() === true){
 					var temp = self.rollSingleDice(); //gets a number from function
-      				self.fiveDice()[i].face(temp);//assigns that new value to die
-      				//pass temp as variable to method ko.observable
+							self.fiveDice()[i].face(temp);//assigns that new value to die
+							//pass temp as variable to method ko.observable
 				}
 			};
 		self.scoreCalculated = false;
@@ -514,18 +514,30 @@ function AppViewModel() {
 	this.freeCalc = function(clicked){
 		self.calcScore(clicked,"free");
 	};
-	//create falling calcscore  ---ATM PREVENTS ANY CLICKING
-	this.fallingCalc = function(clicked){	
-		console.log(clicked["falling"].isSet());
-		// if the previous isSet has been clicked  NOT WORKING NOT WORKING NOT WORKING
-		if (clicked["falling"].isSet() === false){
-			//then go to calcScore
-			self.calcScore(clicked,"falling");
-		}
-		//else alert you can't put your result here
-		else{
-			alert("You can't put your result here.");
-		}
+	//create falling calcscore  
+	this.fallingCalc = function(clicked, index, group){	
+		// if clicked object.falling property allowed is true
+			if (clicked.falling.allowed()) {
+				// pass object to score function
+				self.calcScore(clicked,"falling");
+				// if score function accepted object and set result
+				if (self.scoreCalculated) {
+					// if we're the last entry in allNumbersResults, change the first object in allCombosResults
+					if (group === "allNumbersResults" && index() === 5){
+						self.allCombosResults[1][0].allowed(true);
+					} else if (group === "allCombosResults" && index() === 8) {
+						// do nothing as we're at the Yam!
+					} else {
+					// change next object in group column to allowed (can click next cell in column)
+						self[group][1][index()+1].allowed(true);	
+					}
+					// change the clicked object allowed to false, as it's been set			
+					clicked.falling.allowed(false);
+				}
+			// if not on the allowed falling object
+			} else {
+				alert("oi, can't do that!");
+			}		
 	};
 
 	//create rising calcscore
@@ -562,11 +574,7 @@ function AppViewModel() {
 			if (clicked[column].isSet() === false){
 				// then mark that cell as being set
 				clicked[column].isSet(true);
-				var temp = column;
-				if (column === "announced"){
-					//allow reroll????????????????????????????????????????????????????????????????????????????????????
-				}
-				else{
+			
 		
 				// calculate the score by the rules of that cell from fiveDice, put into result
 				clicked.rules();
@@ -584,7 +592,7 @@ function AppViewModel() {
 				//resets toggles
 				for (i=0; i<5;i++){
 					self.fiveDice()[i].reroll(true);
-				}
+				
 				}
 
 			}	
