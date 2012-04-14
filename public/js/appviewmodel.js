@@ -328,10 +328,10 @@ function AppViewModel() {
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
-				this.result("x");n
+				this.result("x");
 				var i = 4;
 				if (freeDice[i] === freeDice[i-4]){
-					this.result(freeDice[i]*5);
+					this.result(50);
 				}
 			}
 		}
@@ -393,41 +393,55 @@ function AppViewModel() {
 
 	};
 
+	//calculate bonus 
+	this.Bonuses = [];
+	this.Bonuses[0]=ko.observable(0);
+	this.Bonuses[1]=ko.observable(0);
+	this.Bonuses[2]=ko.observable(0);
+	this.Bonuses[3]=ko.observable(0);
+	this.Bonuses[4]=ko.observable(0);
 
-	//calculate combos sutotal
-	this.allCombosSubTotal = [];
-
-	this.calcACRScores = function(){
-		var tempScore = 0;
-		for (var i in self.allCombosResults){
-			if (typeof (self.allCombosResults[i]) === "number"){
-				tempScore += self.allCombosResults[i];
+	this.allNumbersBonus = function(){
+		for (var i in self.allNbRSubTotal){
+			if (self.allNbRSubTotal[i]()>=60){
+				this.Bonuses[i](30);
 			}
-			self.allCombosSubTotal(tempScore)[i];
+			else{
+				this.Bonuses[i](0);
+			}
 		}
 	};
 	
-	//calculate bonus 
-	this.allNumbersBonus = ko.computed(function(){
-		for (var i in self.allNbRSubTotal){
-			if (self.allNbRSubTotal[i]>=60){
-				return 30;
+
+	//calculate combos subtotal
+	this.allCombosSubTotal = [];
+	this.allCombosSubTotal[0] = ko.observable(1);
+	this.allCombosSubTotal[1] = ko.observable(2);
+	this.allCombosSubTotal[2] = ko.observable(3);
+	this.allCombosSubTotal[3] = ko.observable(4);
+	this.allCombosSubTotal[4] = ko.observable(5);
+
+	this.calcACRScores = function(){
+		for (i=0; i<5;i++){
+			var tempScore = 0;
+			for (var j in self.allCombosResults[i]){
+				if (typeof (self.allCombosResults[i][j].result()) === "number"){
+				tempScore += self.allCombosResults[i][j].result();
+				}
 			}
-			else{
-				return 0;
-			}
+			self.allCombosSubTotal[i](tempScore);
 		}
-	});
-	
-
-
-
+	};
 	
 	//totals
-	this.allTotalsArray = ko.observableArray([0, 1, 1, 1, 1]);
+	this.allTotalsArray = [];
+	for (i=0; i<5; i++){
+		this.allTotalsArray[i] = ko.observable(0);
+	}
+
 	this.allTotals = function(){
 		for (var i = 0; i<5; i++){
-			self.allTotalsArray(self.allNbRSubTotal[i] + self.allNumbersBonus() + self.allCombosSubTotal()[i])[i];
+			self.allTotalsArray[i](self.allNbRSubTotal[i]() + self.Bonuses[i]() + self.allCombosSubTotal[i]());
 		}
 	};
 
@@ -442,25 +456,47 @@ function AppViewModel() {
  		this.name = name;
   		this.face = ko.observable(0);
   		this.reroll = ko.observable(true);
-	}
+  	}
 	
 	//creates array with 5 dice objects
 	this.fiveDice = ko.observableArray([
     	new Die("die1"), new Die("die2"), new Die("die3"), new Die("die4"), new Die("die5")
     ]);
 
+	// Controls the number of times rollFiveDice has been activated
+	this.rollcounter = ko.observable(3);
 
 	//gives a face value to all dice
 	this.rollFiveDice = function(){
-		for (i=0; i<5; i++) {
-			if (self.fiveDice()[i].reroll() === true){
-				var temp = self.rollSingleDice(); //gets a number from function
-      			self.fiveDice()[i].face(temp);//assigns that new value to die
-      			//pass temp as variable to method ko.observable
-			}
-		};
+		if (self.rollcounter()>0){ //checks if rolled less than 3 times
+				for (i=0; i<5; i++) {
+				if (self.fiveDice()[i].reroll() === true){
+					var temp = self.rollSingleDice(); //gets a number from function
+      				self.fiveDice()[i].face(temp);//assigns that new value to die
+      				//pass temp as variable to method ko.observable
+				}
+			};
 		self.scoreCalculated = false;
+		var temproll = self.rollcounter();
+		temproll--;
+		self.rollcounter(temproll);
+		}
+		else{
+			alert("You can't roll anymore");
+		}
+
 	};
+
+
+	// Choose non-rerollable dices
+	this.toggleReroll = function(clicked){
+		clicked.reroll(!clicked.reroll());
+	};
+
+	// Updates numbers of rolls
+	this.rollbuttontext = ko.computed(function(){
+		return "Roll my dice (" + self.rollcounter() +" )";
+	});
 
 	//Creating a duplicate dice array to sort values
 	this.sortedDice = function(){
@@ -471,6 +507,8 @@ function AppViewModel() {
 		return freeDice.sort();
 	};
 
+
+	//NEEDS UPDATING --> every time roll Dice, once picked a number, can write in another cell
 	//stops clicking on several numbers at one rollDice
 	this.scoreCalculated = true;
 	
@@ -514,6 +552,16 @@ function AppViewModel() {
 				self.scoreCalculated = true;
 				// call totals
 				self.calcANRScores();
+				this.allNumbersBonus();
+				self.calcACRScores();
+				self.allTotals();
+				// resets roll totals
+				self.rollcounter(3); 
+				//resets toggles
+				for (i=0; i<5;i++){
+					self.fiveDice()[i].reroll(true);
+				}
+				
 
 			}	
 			else {

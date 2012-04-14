@@ -45,16 +45,16 @@
 						<td data-bind="text: allNbRSubTotal[3]"></td>
 						<td data-bind="text: allNbRSubTotal[4]"></td>
 					</tr>
-					<!-- 
+					
 					<tr style="font-weight:bold;">
 						<td>Bonus (30)</td>
-						<td data-bind = "text:allNumbersBonus"></td>
-						<td data-bind = "text:allNumbersBonus"></td>
-						<td data-bind = "text:allNumbersBonus"></td>
-						<td data-bind = "text:allNumbersBonus"></td>
-						<td data-bind = "text:allNumbersBonus"></td>
+						<td data-bind = "text:Bonuses[0]"></td>
+						<td data-bind = "text:Bonuses[1]"></td>
+						<td data-bind = "text:Bonuses[2]"></td>
+						<td data-bind = "text:Bonuses[3]"></td>
+						<td data-bind = "text:Bonuses[4]"></td>
 					</tr>
-					-->
+					
 
 					<!-- combos -->
 					<!-- ko foreach: allCombos -->
@@ -68,28 +68,28 @@
 					</tr>
 					<!-- /ko -->
 
-					<!--
+					
 					<tr style="font-weight:bold;">
 						<td>Sub-total</td>
-						<td data-bind="text: allCombosSubTotal()[0]"></td>
-						<td data-bind="text: allCombosSubTotal()[1]"></td>
-						<td data-bind="text: allCombosSubTotal()[2]"></td>
-						<td data-bind="text: allCombosSubTotal()[3]">></td>
-						<td data-bind="text: allCombosSubTotal()[4]">></td>
+						<td data-bind="text: allCombosSubTotal[0]"></td>
+						<td data-bind="text: allCombosSubTotal[1]"></td>
+						<td data-bind="text: allCombosSubTotal[2]"></td>
+						<td data-bind="text: allCombosSubTotal[3]">></td>
+						<td data-bind="text: allCombosSubTotal[4]">></td>
 					</tr>
-					-->
+				
 
 					<!-- total score -->
-					<!--
+					
 					<tr style="font-weight:bold;">
 						<td>Total</td>
-						<td data-bind="text: allTotalsArray()[0]"></td>
-						<td data-bind="text: allTotalsArray()[1]"></td>
-						<td data-bind="text: allTotalsArray()[2]"></td>
-						<td data-bind="text: allTotalsArray()[3]">></td>
-						<td data-bind="text: allTotalsArray()[4]">></td>
+						<td data-bind="text: allTotalsArray[0]"></td>
+						<td data-bind="text: allTotalsArray[1]"></td>
+						<td data-bind="text: allTotalsArray[2]"></td>
+						<td data-bind="text: allTotalsArray[3]">></td>
+						<td data-bind="text: allTotalsArray[4]">></td>
 					</tr>
-					-->
+					
 				</tbody>
 			</table>
 
@@ -105,11 +105,11 @@
 				</thead>
 				<tbody>
 					<tr data-bind="foreach: fiveDice">
-						<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }"/></td>
+						<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll"/></td>
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-primary btn-large" data-bind="click: rollFiveDice">Roll my dice</button>
+			<button class="btn btn-primary btn-large" data-bind="click: rollFiveDice, text:rollbuttontext">Roll my dice</button>
 		</div> <! -- end column -->
 
 
