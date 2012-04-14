@@ -12,7 +12,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(true)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -36,7 +36,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable("")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -60,7 +60,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -84,7 +84,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -108,7 +108,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -132,7 +132,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -160,7 +160,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -180,7 +180,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -211,7 +211,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -231,7 +231,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -252,7 +252,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: 
@@ -274,7 +274,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -295,7 +295,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -309,7 +309,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -323,7 +323,7 @@ function AppViewModel() {
 			result: ko.observable(" "),
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			rising: {isSet:ko.observable(false), result:ko.observable(" ")},
+			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(true)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
@@ -541,8 +541,25 @@ function AppViewModel() {
 	};
 
 	//create rising calcscore
-	this.risingCalc = function(clicked){		
-		self.calcScore(clicked,"rising");
+	this.risingCalc = function(clicked, index, group){	
+		if (clicked.rising.allowed()){ //if you can click
+			self.calcScore(clicked,"rising");	//parse to calc function
+			if (self.scoreCalculated){ // if calc function passed
+				if (group==="allCombosResults" && index() === 0){//if we're the last in comboresults
+					self.allNumbersResults[2][5].allowed(true);//allow all?Numbers results to start
+				}
+				else if (group === "allNumbersResults" && index() === 0){ //if the whole column is done, do nothing
+				}
+				else { //otherwise, change next object in group column to be allowed
+					self[group][2][index()-1].allowed(true);	
+				}//change clicked object to false, because set
+				clicked.rising.allowed(false);
+			}
+		}
+		else{
+			alert("You can't do that");
+		}	
+
 	};
 
 	//create announced calcscore
@@ -573,9 +590,7 @@ function AppViewModel() {
 			// and if that table cell has not yet been clicked on
 			if (clicked[column].isSet() === false){
 				// then mark that cell as being set
-				clicked[column].isSet(true);
-			
-		
+				clicked[column].isSet(true);		
 				// calculate the score by the rules of that cell from fiveDice, put into result
 				clicked.rules();
 				// put the calculated result into the cell result
