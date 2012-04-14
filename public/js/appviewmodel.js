@@ -341,31 +341,29 @@ function AppViewModel() {
 	this.allNumbersResults = [];
 	// array of Combos Array
 	this.allCombosResults = [];
-	this.PassResults = function(){
+	
 	//populate column arrays
 	for (var i = 0; i<5; i++){
 		self.allNumbersResults.push([]);
-	}
-	for (var i =0; i<5; i++){
 		self.allCombosResults.push([]);
 	}
 
 	for (var i in self.allNumbers) {
-		self.allNumbersResults[0].push(self.allNumbers[i].free.result());
-		self.allNumbersResults[1].push(self.allNumbers[i].falling.result());
-		self.allNumbersResults[2].push(self.allNumbers[i].rising.result());
-		self.allNumbersResults[3].push(self.allNumbers[i].announced.result());
-		self.allNumbersResults[4].push(self.allNumbers[i].dry.result());
+		self.allNumbersResults[0].push(self.allNumbers[i].free);
+		self.allNumbersResults[1].push(self.allNumbers[i].falling);
+		self.allNumbersResults[2].push(self.allNumbers[i].rising);
+		self.allNumbersResults[3].push(self.allNumbers[i].announced);
+		self.allNumbersResults[4].push(self.allNumbers[i].dry);
 	}
 
 	for (var i in self.allCombos) {
-		self.allCombosResults[0].push(self.allCombos[i].free.result());
-		self.allCombosResults[1].push(self.allCombos[i].falling.result());
-		self.allCombosResults[2].push(self.allCombos[i].rising.result());
-		self.allCombosResults[3].push(self.allCombos[i].announced.result());
-		self.allCombosResults[4].push(self.allCombos[i].dry.result());
+		self.allCombosResults[0].push(self.allCombos[i].free);
+		self.allCombosResults[1].push(self.allCombos[i].falling);
+		self.allCombosResults[2].push(self.allCombos[i].rising);
+		self.allCombosResults[3].push(self.allCombos[i].announced);
+		self.allCombosResults[4].push(self.allCombos[i].dry);
 	}
-};
+
 	// allNumbersResults 0 = free, 1=falling, 2=rising, 3=announced, 4=dry
 	// creating function for ALL allNumbersResults
 
@@ -377,18 +375,36 @@ function AppViewModel() {
 	this.allNbRSubTotal[3]=ko.observable(4);
 	this.allNbRSubTotal[4]=ko.observable(5);
 
-	this.allNumbersResultsSubTotal = function(){
-		var tempScore = 0;
+	// allNumbersResults [ [{result, isset},{result},{result},{result},{result}], [], [], [], [] ];
+	// allNumbersResults[0] = [{result},{},{},{},{}]
+	// allNumbersResults[0][0] = {result: ko.observable()}
+	// allNumbersResults[0][0].result() === an actual usable number
+
+	this.calcANRScores = function(){
 		for (var i=0; i<5;i++){
+			var tempScore = 0;
 			for (var j in self.allNumbersResults[i]){
-				if (typeof (self.allNumbersResults[i][j]=== "number")){
-					tempScore += self.allNumbersResults[i][j];
-					console.log(tempScore);
+				if ( typeof ( self.allNumbersResults[i][j].result() ) === "number" ){
+					tempScore += self.allNumbersResults[i][j].result();
 				}
 			}
-			self.allNbRSubTotal[i] = tempScore;
+			self.allNbRSubTotal[i](tempScore);
 		}
 
+	};
+
+
+	//calculate combos sutotal
+	this.allCombosSubTotal = [];
+
+	this.calcACRScores = function(){
+		var tempScore = 0;
+		for (var i in self.allCombosResults){
+			if (typeof (self.allCombosResults[i]) === "number"){
+				tempScore += self.allCombosResults[i];
+			}
+			self.allCombosSubTotal(tempScore)[i];
+		}
 	};
 	
 	//calculate bonus 
@@ -403,17 +419,7 @@ function AppViewModel() {
 		}
 	});
 	
-	//calculate combos sutotal
-	this.allCombosSubTotal = ko.observableArray([0, 0, 0, 0, 0]);
-	this.CombosSubTotal = function(){
-		var tempScore = 0;
-		for (var i in self.allCombosResults){
-			if (typeof (self.allCombosResults[i]) === "number"){
-				tempScore += self.allCombosResults[i];
-			}
-			self.allCombosSubTotal(tempScore)[i];
-		}
-	};
+
 
 
 	
@@ -507,12 +513,8 @@ function AppViewModel() {
 				// set that we've already clicked a cell this turn
 				self.scoreCalculated = true;
 				// call totals
-				self.PassResults();
-				self.allNumbersResultsSubTotal();
-				self.CombosSubTotal();
-				self.allTotals();
-					console.log(self.allNumbers[1].free.result());
-					console.log(self.allNumbersResults[0]);
+				self.calcANRScores();
+
 			}	
 			else {
 				alert("You have already picked that number");
