@@ -341,7 +341,7 @@ function AppViewModel() {
 	this.allNumbersResults = [];
 	// array of Combos Array
 	this.allCombosResults = [];
-
+	this.PassResults = function(){
 	//populate column arrays
 	for (var i = 0; i<5; i++){
 		self.allNumbersResults.push([]);
@@ -365,7 +365,7 @@ function AppViewModel() {
 		self.allCombosResults[3].push(self.allCombos[i].announced.result());
 		self.allCombosResults[4].push(self.allCombos[i].dry.result());
 	}
-
+};
 	// allNumbersResults 0 = free, 1=falling, 2=rising, 3=announced, 4=dry
 	// creating function for ALL allNumbersResults
 
@@ -386,7 +386,7 @@ function AppViewModel() {
 					console.log(tempScore);
 				}
 			}
-			self.allNbRSubTotal[i]=tempScore;
+			self.allNbRSubTotal[i] = tempScore;
 		}
 
 	};
@@ -507,10 +507,12 @@ function AppViewModel() {
 				// set that we've already clicked a cell this turn
 				self.scoreCalculated = true;
 				// call totals
+				self.PassResults();
 				self.allNumbersResultsSubTotal();
 				self.CombosSubTotal();
 				self.allTotals();
 					console.log(self.allNumbers[1].free.result());
+					console.log(self.allNumbersResults[0]);
 			}	
 			else {
 				alert("You have already picked that number");
