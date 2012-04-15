@@ -116,7 +116,13 @@
 				</thead>
 				<tbody>
 					<tr data-bind="foreach: fiveDice">
-						<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll"/></td>
+
+					<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{backgroundColor: colour() === false ? '#FFFF99' : 'white'}"/></td>
+
+ 
+
+
+						<!--<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll"/></td> -->
 					</tr>
 				</tbody>
 			</table>

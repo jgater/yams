@@ -456,6 +456,7 @@ function AppViewModel() {
 		this.name = name;
 			this.face = ko.observable(0);
 			this.reroll = ko.observable(true);
+			this.colour = ko.observable(true);
 		}
 	
 	//creates array with 5 dice objects
@@ -491,8 +492,10 @@ function AppViewModel() {
 	// Choose non-rerollable dices
 	this.toggleReroll = function(clicked){
 		clicked.reroll(!clicked.reroll());
+		clicked.colour(!clicked.colour());
 	};
 
+	
 	// Updates numbers of rolls
 	this.rollbuttontext = ko.computed(function(){
 		return "Roll my dice (" + self.rollcounter() +")";
@@ -511,11 +514,11 @@ function AppViewModel() {
 	this.scoreCalculated = true;
 	
 	// create free calcscore
-	this.freeCalc = function(clicked){
+	this.freeCalc = function(clicked,index){ //add big and small chance conditions
 		self.calcScore(clicked,"free");
 	};
 	//create falling calcscore  
-	this.fallingCalc = function(clicked, index, group){	
+	this.fallingCalc = function(clicked, index, group){	// clicked object; index (position in array of column)
 		// if clicked object.falling property allowed is true
 			if (clicked.falling.allowed()) {
 				// pass object to score function
@@ -607,6 +610,7 @@ function AppViewModel() {
 				//resets toggles
 				for (i=0; i<5;i++){
 					self.fiveDice()[i].reroll(true);
+					self.fiveDice()[i].colour(true);
 				
 				}
 
