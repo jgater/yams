@@ -100,6 +100,10 @@
 						<td data-bind="text: allTotalsArray[3]">></td>
 						<td data-bind="text: allTotalsArray[4]">></td>
 					</tr>
+					<tr style="font-weight:bold;">
+						<td>TOTAL</td>
+						<td colspan="4" data-bind="text: combinedTotals"><td>
+					</tr>
 					
 				</tbody>
 			</table>
@@ -117,7 +121,7 @@
 				<tbody>
 					<tr data-bind="foreach: fiveDice">
 
-					<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{backgroundColor: colour() === false ? '#FFFF99' : 'white'}"/></td>
+					<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{backgroundColor: reroll() === false ? '#FFFF99' : 'white'}"/></td>
 
  
 

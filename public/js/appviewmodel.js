@@ -445,6 +445,15 @@ function AppViewModel() {
 		}
 	};
 
+	// calculating combined totals
+	this.combinedTotals = ko.observable(0);
+	this.combinedTotalsCalc = function(){
+		var mytemp = 0;
+		for (var i=0; i<self.allTotalsArray.length;i++){
+			mytemp = mytemp + self.allTotalsArray[i]();
+		}
+		self.combinedTotals(mytemp);
+	};
 
 	//Rolling the dice once
 	this.rollSingleDice = function(){
@@ -456,7 +465,6 @@ function AppViewModel() {
 		this.name = name;
 			this.face = ko.observable(0);
 			this.reroll = ko.observable(true);
-			this.colour = ko.observable(true);
 		}
 	
 	//creates array with 5 dice objects
@@ -492,7 +500,6 @@ function AppViewModel() {
 	// Choose non-rerollable dices
 	this.toggleReroll = function(clicked){
 		clicked.reroll(!clicked.reroll());
-		clicked.colour(!clicked.colour());
 	};
 
 	
@@ -605,12 +612,12 @@ function AppViewModel() {
 				this.allNumbersBonus();
 				self.calcACRScores();
 				self.allTotals();
+				self.combinedTotalsCalc();
 				// resets roll totals
 				self.rollcounter(3); 
 				//resets toggles
 				for (i=0; i<5;i++){
 					self.fiveDice()[i].reroll(true);
-					self.fiveDice()[i].colour(true);
 				
 				}
 
