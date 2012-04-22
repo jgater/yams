@@ -522,8 +522,66 @@ function AppViewModel() {
 	
 	// create free calcscore
 	this.freeCalc = function(clicked,index){ //add big and small chance conditions
-		self.calcScore(clicked,"free");
+		// would need to be commented out --> self.calcScore(clicked,"free");
+		if (clicked.free === self.allCombosResults[0][7]){
+			if (self.allCombosResults[0][6].isSet()){
+				if (
+				(self.fiveDice()[0].face()+ self.fiveDice()[1].face()+self.fiveDice()[2].face()+self.fiveDice()[3].face()+self.fiveDice()[4].face())
+				 > self.allCombosResults[0][6]){//HERE LIES THE PROBLEM
+					self.calcScore(clicked,"free");
+				}
+				 else{
+					clicked.free.result("x");
+					self.scoreCalculated = true;
+					clicked.free.isSet(true);
+					self.rollcounter(3); 
+					//resets toggles
+					for (i=0; i<5;i++){
+						self.fiveDice()[i].reroll(true);
+				
+					}
+				}
+			}
+			else {
+				self.calcScore(clicked,"free");
+			}
+		}
+		else if (clicked.free === self.allCombosResults[0][6]){
+			if (self.allCombosResults[0][7].isSet()){
+				if (
+				(self.fiveDice()[0].face()+ self.fiveDice()[1].face()+self.fiveDice()[2].face()+self.fiveDice()[3].face()+self.fiveDice()[4].face())
+				< self.allCombosResults[0][7]){//HERE LIES THE PROBLEM
+					self.calcScore(clicked,"free");
+				}
+				else{
+					clicked.free.result("x");
+					self.scoreCalculated = true;
+					clicked.free.isSet(true);	
+					self.rollcounter(3); 
+					//resets toggles
+					for (i=0; i<5;i++){
+						self.fiveDice()[i].reroll(true);
+				
+					}
+				}
+			}
+			else{
+				self.calcScore(clicked,"free");
+			}
+		}
+		else{
+			self.calcScore(clicked, "free");
+		}
+				//if clicked = free big chance; if small chance true; if big chance > small chance, calculate result
+				//														else result = x
+				//								else calculate result
+				//else if clicked = free small chance; if big chance true; if small chance < big chance, calc result
+				//															else result = x
+				//								else calculate result
+				//else calculate result
 	};
+
+
 	//create falling calcscore  
 	this.fallingCalc = function(clicked, index, group){	// clicked object; index (position in array of column)
 		// if clicked object.falling property allowed is true
@@ -607,6 +665,7 @@ function AppViewModel() {
 				clicked[column].result(clicked.result());
 				// set that we've already clicked a cell this turn
 				self.scoreCalculated = true;
+
 				// call totals
 				self.calcANRScores();
 				this.allNumbersBonus();
