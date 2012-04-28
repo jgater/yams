@@ -681,7 +681,6 @@ function AppViewModel() {
 				//resets toggles
 				for (i=0; i<5;i++){
 					self.fiveDice()[i].reroll(true);
-					self.fiveDice()[i].face(0);
 				}
 
 			}	
