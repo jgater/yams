@@ -547,7 +547,7 @@ function AppViewModel() {
 	//create falling calcscore  
 	this.fallingCalc = function(clicked, index, group){	// clicked object; index (position in array of column)
 		// if clicked object.falling property allowed is true
-			if (clicked.falling.allowed()) {
+			if (!self.scoreCalculated && self.clicked.falling.allowed()) {
 				// pass object to score function
 				self.calcScore(clicked,"falling");
 				// if score function accepted object and set result
@@ -572,7 +572,7 @@ function AppViewModel() {
 
 	//create rising calcscore
 	this.risingCalc = function(clicked, index, group){	
-		if (clicked.rising.allowed()){ //if you can click
+		if (!self.scoreCalculated && clicked.rising.allowed()){ //if you can click
 			self.calcScore(clicked,"rising");	//parse to calc function
 			if (self.scoreCalculated){ // if calc function passed
 				if (group==="allCombosResults" && index() === 0){//if we're the last in comboresults
