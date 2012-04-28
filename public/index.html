@@ -35,30 +35,28 @@
 						<td data-bind="text: rising.result, click: function(){$parent.risingCalc($data, $index,'allNumbersResults')}, style:{backgroundColor:rising.allowed() ? '#CCFFCC' : 'white'}"></td>
 						<td data-bind="text: announced.result, click:$parent.announcedCalc, style:{backgroundColor:announced.isSet() === false ? '#CCFFCC' : 'white'}"></td>
 						
-				<!-- ko ifnot: dry.isSet   -->			
+						<!-- ko ifnot: dry.isSet   -->			
 						<td data-bind="text: dry.result, click:$parent.dryCalc, style:{backgroundColor:$parent.rollcounter()>= 2 ? '#CCFFCC' : 'white'}"></td>
-				<!-- /ko -->
-				<!-- ko if: dry.isSet  -->	
+						<!-- /ko -->
+						<!-- ko if: dry.isSet  -->	
 						<td data-bind="text: dry.result, click:$parent.dryCalc, style:{backgroundColor:'white'}"></td>
-				<!-- /ko -->
+						<!-- /ko -->
 						</tr>
 					<!-- /ko -->
+
+
 					<tr class="bold highlight">
 						<td>Sub-total (60)</td>
-						<td data-bind="text: allNbRSubTotal[0]"></td>
-						<td data-bind="text: allNbRSubTotal[1]"></td>
-						<td data-bind="text: allNbRSubTotal[2]"></td>
-						<td data-bind="text: allNbRSubTotal[3]"></td>
-						<td data-bind="text: allNbRSubTotal[4]"></td>
+						<!-- ko foreach: allNbRSubTotal -->
+						<td data-bind="text: $data"></td>
+						<!-- /ko -->
 					</tr>
 					
 					<tr class="bold highlight">
 						<td>Bonus (30)</td>
-						<td data-bind = "text:Bonuses[0]"></td>
-						<td data-bind = "text:Bonuses[1]"></td>
-						<td data-bind = "text:Bonuses[2]"></td>
-						<td data-bind = "text:Bonuses[3]"></td>
-						<td data-bind = "text:Bonuses[4]"></td>
+						<!-- ko foreach: Bonuses -->
+						<td data-bind = "text:$data"></td>
+						<!-- /ko -->
 					</tr>
 					
 
@@ -70,35 +68,28 @@
 						<td data-bind="text: falling.result, click: function() {$parent.fallingCalc($data,$index,'allCombosResults')}, style:{backgroundColor:falling.allowed() ? '#CCFFCC' : 'white'}"></td>
 						<td data-bind="text: rising.result, click: function() {$parent.risingCalc($data, $index,'allCombosResults')}, style:{backgroundColor:rising.allowed() ? '#CCFFCC' : 'white'}"></td>
 						<td data-bind="text: announced.result, click:$parent.announcedCalc, style:{backgroundColor:announced.isSet() === false ? '#CCFFCC' : 'white'}"></td>
-
-					<!-- ko ifnot: dry.isSet   -->			
+						<!-- ko ifnot: dry.isSet   -->			
 						<td data-bind="text: dry.result, click:$parent.dryCalc, style:{backgroundColor:$parent.rollcounter()>= 2 ? '#CCFFCC' : 'white'}"></td>
-					<!-- /ko -->
-					<!-- ko if: dry.isSet  -->	
+						<!-- /ko -->
+						<!-- ko if: dry.isSet  -->	
 						<td data-bind="text: dry.result, click:$parent.dryCalc, style:{backgroundColor:'white'}"></td>
-					<!-- /ko -->
-
+						<!-- /ko -->
 					</tr>
 					<!-- /ko -->
 					
 					<tr class="bold highlight">
 						<td>Sub-total</td>
-						<td data-bind="text: allCombosSubTotal[0]"></td>
-						<td data-bind="text: allCombosSubTotal[1]"></td>
-						<td data-bind="text: allCombosSubTotal[2]"></td>
-						<td data-bind="text: allCombosSubTotal[3]">></td>
-						<td data-bind="text: allCombosSubTotal[4]">></td>
+						<!-- ko foreach: allCombosSubTotal -->
+						<td data-bind="text: $data"></td>
+						<!-- /ko -->
 					</tr>
 				
-					<!-- total score -->
-					
+					<!-- total column score -->		
 					<tr class="bold highlight">
-						<td>Total</td>
-						<td data-bind="text: allTotalsArray[0]"></td>
-						<td data-bind="text: allTotalsArray[1]"></td>
-						<td data-bind="text: allTotalsArray[2]"></td>
-						<td data-bind="text: allTotalsArray[3]">></td>
-						<td data-bind="text: allTotalsArray[4]">></td>
+						<td>Column Total</td>
+						<!-- ko foreach: allTotalsArray -->
+						<td data-bind="text: $data"></td>
+						<!-- /ko -->
 					</tr>
 					<tr class="bold lasthighlight">
 						<td>SCORE</td>
@@ -120,9 +111,7 @@
 				</thead>
 				<tbody>
 					<tr data-bind="foreach: fiveDice">
-
-					<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{background: reroll() === false ? '#FFFF99' : 'white'}"/></td>
-						<!--<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll"/></td> -->
+						<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{background: reroll() === false ? '#FFFF99' : 'white'}"/></td>	
 					</tr>
 				</tbody>
 			</table>
