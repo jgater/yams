@@ -298,9 +298,16 @@ function AppViewModel() {
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
-			rules: function(){
+			rules: function(otherScore){
 				var freeDice = self.sortedDice();
-				this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
+				var tempScore = 0;
+				this.result("x");
+				for (var i in freeDice) {
+					tempScore += freeDice[i];
+				}
+				if (tempScore <= otherScore) {
+					this.result(tempScore);
+				}
 			}
 		},
 		//Big Chance
@@ -311,10 +318,17 @@ function AppViewModel() {
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
-			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
-			rules: function(){
+			dry: {isSet:ko.observable(false), result:ko.observable(" "), otherValue: 0, otherSet: ko.observable(false)},
+			rules: function(otherScore){
 				var freeDice = self.sortedDice();
-				this.result(freeDice[0]+freeDice[1]+freeDice[2]+freeDice[3]+freeDice[4]);
+				var tempScore = 0;
+				this.result("x");
+				for (var i in freeDice) {
+					tempScore += freeDice[i];
+				}
+				if (tempScore >= otherScore) {
+					this.result(tempScore);
+				}
 			}
 		},
 		//Yam
@@ -375,7 +389,7 @@ function AppViewModel() {
 	this.allNbRSubTotal[3]=ko.observable(0);
 	this.allNbRSubTotal[4]=ko.observable(0);
 
-	// allNumbersResults [ [{result, isset},{result},{result},{result},{result}], [], [], [], [] ];
+	// allNumbersResults [ [{result, isset},{result},{result},{result},{result}], [], [], [], [], [] ];
 	// allNumbersResults[0] = [{result},{},{},{},{}]
 	// allNumbersResults[0][0] = {result: ko.observable()}
 	// allNumbersResults[0][0].result() === an actual usable number
@@ -525,64 +539,8 @@ function AppViewModel() {
 	this.scoreCalculated = true;
 	
 	// create free calcscore
-	this.freeCalc = function(clicked,index){ //add big and small chance conditions
-		// would need to be commented out --> self.calcScore(clicked,"free");
-		if (clicked.free === self.allCombosResults[0][7]){
-			if (self.allCombosResults[0][6].isSet()){
-				if (
-				(self.fiveDice()[0].face()+ self.fiveDice()[1].face()+self.fiveDice()[2].face()+self.fiveDice()[3].face()+self.fiveDice()[4].face())
-				 > self.allCombosResults[0][6]){//HERE LIES THE PROBLEM
-					self.calcScore(clicked,"free");
-				}
-				 else{
-					clicked.free.result("x");
-					self.scoreCalculated = true;
-					clicked.free.isSet(true);
-					self.rollcounter(3); 
-					//resets toggles
-					for (i=0; i<5;i++){
-						self.fiveDice()[i].reroll(true);
-				
-					}
-				}
-			}
-			else {
-				self.calcScore(clicked,"free");
-			}
-		}
-		else if (clicked.free === self.allCombosResults[0][6]){
-			if (self.allCombosResults[0][7].isSet()){
-				if (
-				(self.fiveDice()[0].face()+ self.fiveDice()[1].face()+self.fiveDice()[2].face()+self.fiveDice()[3].face()+self.fiveDice()[4].face())
-				< self.allCombosResults[0][7]){//HERE LIES THE PROBLEM
-					self.calcScore(clicked,"free");
-				}
-				else{
-					clicked.free.result("x");
-					self.scoreCalculated = true;
-					clicked.free.isSet(true);	
-					self.rollcounter(3); 
-					//resets toggles
-					for (i=0; i<5;i++){
-						self.fiveDice()[i].reroll(true);
-				
-					}
-				}
-			}
-			else{
-				self.calcScore(clicked,"free");
-			}
-		}
-		else{
-			self.calcScore(clicked, "free");
-		}
-				//if clicked = free big chance; if small chance true; if big chance > small chance, calculate result
-				//														else result = x
-				//								else calculate result
-				//else if clicked = free small chance; if big chance true; if small chance < big chance, calc result
-				//															else result = x
-				//								else calculate result
-				//else calculate result
+	this.freeCalc = function(clicked,index){ 
+		self.calcScore(clicked,"free");
 	};
 
 
@@ -664,7 +622,28 @@ function AppViewModel() {
 				// then mark that cell as being set
 				clicked[column].isSet(true);		
 				// calculate the score by the rules of that cell from fiveDice, put into result
-				clicked.rules();
+				if (clicked.name === "Big Chance") {
+					// big chance, so need to pass result of small chance in same column and check if a real number
+					var smallchance = self.allCombos[6][column].result();
+					if (typeof smallchance === "number") {
+						clicked.rules(smallchance);	
+					} else {
+						// small chance not set/set with invalid so allow any score
+						clicked.rules(0);	
+					}			
+				} else if (clicked.name === "Small Chance") {
+					// small chance, so need to pass result of big chance in same column and check if a real number
+					var bigchance = self.allCombos[7][column].result();
+					if (typeof bigchance === "number") {
+						clicked.rules(bigchance);	
+					} else {
+						// big chance not set/set with invalid so allow any score
+						clicked.rules(30);	
+					}			
+				} else {
+					// not looking at big chance or small chance so just score by the rules
+					clicked.rules();	
+				}
 				// put the calculated result into the cell result
 				clicked[column].result(clicked.result());
 				// set that we've already clicked a cell this turn
