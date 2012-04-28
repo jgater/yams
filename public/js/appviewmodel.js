@@ -547,7 +547,7 @@ function AppViewModel() {
 	//create falling calcscore  
 	this.fallingCalc = function(clicked, index, group){	// clicked object; index (position in array of column)
 		// if clicked object.falling property allowed is true
-			if (!self.scoreCalculated && self.clicked.falling.allowed()) {
+			if (!self.scoreCalculated && clicked.falling.allowed()) {
 				// pass object to score function
 				self.calcScore(clicked,"falling");
 				// if score function accepted object and set result
