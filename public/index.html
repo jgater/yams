@@ -122,15 +122,11 @@
 					<tr data-bind="foreach: fiveDice">
 
 					<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{backgroundColor: reroll() === false ? '#FFFF99' : 'white'}"/></td>
-
- 
-
-
 						<!--<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll"/></td> -->
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-primary btn-large" data-bind="click: rollFiveDice, text:rollbuttontext">Roll my dice</button>
+			<button class="btn btn-primary btn-large" data-bind="click: rollFiveDice, text:rollbuttontext, visible: ($root.rollcounter()!=0)"></button>
 		</div> <! -- end column -->
 
 

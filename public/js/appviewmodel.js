@@ -505,7 +505,11 @@ function AppViewModel() {
 	
 	// Updates numbers of rolls
 	this.rollbuttontext = ko.computed(function(){
-		return "Roll my dice (" + self.rollcounter() +")";
+		if (self.rollcounter()===3) {
+			return "Roll my dice";
+		} else {
+		return "Reroll dice (" + self.rollcounter() +")";
+		}
 	});
 
 	//Creating a duplicate dice array to sort values
@@ -682,7 +686,7 @@ function AppViewModel() {
 
 			}	
 			else {
-				alert("Tu as deja choisi cette case. \nYou have already picked that number");
+				alert("Tu as deja choisi cette case. \nYou have already picked that number.");
 			}		
 		}
 		else {
