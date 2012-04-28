@@ -491,7 +491,7 @@ function AppViewModel() {
 		self.rollcounter(temproll);
 		}
 		else{
-			alert("Tu ne peux plus relancer! You can't roll anymore");
+			alert("Tu ne peux plus relancer!\n You can't roll anymore!");
 		}
 
 	};
@@ -604,7 +604,7 @@ function AppViewModel() {
 				}
 			// if not on the allowed falling object
 			} else {
-				alert("Tu ne peux pas encore faire ca! oi, can't do that!");
+				alert("Tu ne peux pas encore faire ca! \nOi, can't do that!");
 			}		
 	};
 
@@ -625,7 +625,7 @@ function AppViewModel() {
 			}
 		}
 		else{
-			alert("Tu ne peux pas encore faire ca! You can't do that");
+			alert("Tu ne peux pas encore faire ca! \nYou can't do that");
 		}	
 
 	};
@@ -647,7 +647,7 @@ function AppViewModel() {
 			self.calcScore(clicked,"dry");
 		}
 		else{
-			alert("Tu ne peux plus inscrire ton resultat ici. You can't put your result here.");
+			alert("Tu ne peux plus inscrire ton resultat ici.\n You can't put your result here.");
 		}
 	};
 
@@ -682,11 +682,11 @@ function AppViewModel() {
 
 			}	
 			else {
-				alert("Tu as deja choisi cette case. You have already picked that number");
+				alert("Tu as deja choisi cette case. \nYou have already picked that number");
 			}		
 		}
 		else {
-			alert("Tu as deja choisi une case, relance les des! You've already picked a spot, roll the dice again!")
+			alert("Tu as deja choisi une case, relance les des! \nYou've already picked a spot, roll the dice again!")
 		}
 	};
 
