@@ -43,7 +43,7 @@
 				<!-- /ko -->
 						</tr>
 					<!-- /ko -->
-					<tr style=font-weight:>
+					<tr class="bold highlight">
 						<td>Sub-total (60)</td>
 						<td data-bind="text: allNbRSubTotal[0]"></td>
 						<td data-bind="text: allNbRSubTotal[1]"></td>
@@ -52,7 +52,7 @@
 						<td data-bind="text: allNbRSubTotal[4]"></td>
 					</tr>
 					
-					<tr style="font-weight:bold;">
+					<tr class="bold highlight">
 						<td>Bonus (30)</td>
 						<td data-bind = "text:Bonuses[0]"></td>
 						<td data-bind = "text:Bonuses[1]"></td>
@@ -81,7 +81,7 @@
 					</tr>
 					<!-- /ko -->
 					
-					<tr style="font-weight:bold;">
+					<tr class="bold highlight">
 						<td>Sub-total</td>
 						<td data-bind="text: allCombosSubTotal[0]"></td>
 						<td data-bind="text: allCombosSubTotal[1]"></td>
@@ -92,7 +92,7 @@
 				
 					<!-- total score -->
 					
-					<tr style="font-weight:bold;">
+					<tr class="bold highlight">
 						<td>Total</td>
 						<td data-bind="text: allTotalsArray[0]"></td>
 						<td data-bind="text: allTotalsArray[1]"></td>
@@ -100,8 +100,8 @@
 						<td data-bind="text: allTotalsArray[3]">></td>
 						<td data-bind="text: allTotalsArray[4]">></td>
 					</tr>
-					<tr style="font-weight:bold;">
-						<td>TOTAL</td>
+					<tr class="bold lasthighlight">
+						<td>SCORE</td>
 						<td colspan="5" data-bind="text: combinedTotals"></td>
 					</tr>
 					
@@ -121,7 +121,7 @@
 				<tbody>
 					<tr data-bind="foreach: fiveDice">
 
-					<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{backgroundColor: reroll() === false ? '#FFFF99' : 'white'}"/></td>
+					<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{background: reroll() === false ? '#FFFF99' : 'white'}"/></td>
 						<!--<td><img height="70px" width="70px" data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll"/></td> -->
 					</tr>
 				</tbody>
