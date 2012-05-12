@@ -600,10 +600,12 @@ function AppViewModel() {
 		{
 			alert("You need to roll the dice first!");
 		} else {
+			//first click
 			if (!self.announceMode()) {
 				self.announceMode(true);
 				clicked.announced.announced(true);
 			} else {
+				//second click
 				self.announceMode(false);
 				clicked.announced.announced(false);
 				self.calcScore(clicked,"announced");
