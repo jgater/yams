@@ -37,17 +37,17 @@
 							<td style="background: #CCFFCC", data-bind="click: $parent.freeCalc"></td>
 						<!--  /ko -->
 
-						<!-- ko ifnot: (falling.allowed() && !$parent.announceMode()) -->
+						<!-- ko if: (!falling.allowed() || $parent.announceMode()) -->
 							<td style="background: white", data-bind="text: falling.result"></td>
 						<!--  /ko -->
-						<!-- ko if: (falling.allowed() && !$parent.announceMode()) -->
+						<!-- ko ifnot: (!falling.allowed() || $parent.announceMode()) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.fallingCalc($data,$index,'allNumbersResults')}"></td>
 						<!--  /ko -->
 
-						<!-- ko ifnot: (rising.allowed() && !$parent.announceMode()) -->
+						<!-- ko if: (!rising.allowed() || $parent.announceMode()) -->
 							<td style="background: white", data-bind="text: rising.result"></td>
 						<!--  /ko -->
-						<!-- ko if: (rising.allowed() && !$parent.announceMode()) -->
+						<!-- ko ifnot: (!rising.allowed() || $parent.announceMode()) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.risingCalc($data,$index,'allNumbersResults')}"></td>
 						<!--  /ko -->
 
@@ -107,20 +107,20 @@
 							<td style="background: #CCFFCC", data-bind="click: $parent.freeCalc"></td>
 						<!--  /ko -->
 
-						<!-- ko ifnot: (falling.allowed() && !$parent.announceMode()) -->
+						<!-- ko if: (!falling.allowed() || $parent.announceMode()) -->
 							<td style="background: white", data-bind="text: falling.result"></td>
 						<!--  /ko -->
-						<!-- ko if: (falling.allowed() && !$parent.announceMode()) -->
+						<!-- ko ifnot: (!falling.allowed() || $parent.announceMode()) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.fallingCalc($data,$index,'allCombosResults')}"></td>
 						<!--  /ko -->
 
-						<!-- ko ifnot: (rising.allowed() && !$parent.announceMode()) -->
+						<!-- ko if: (!rising.allowed() || $parent.announceMode()) -->
 							<td style="background: white", data-bind="text: rising.result"></td>
 						<!--  /ko -->
-						<!-- ko if: (rising.allowed() && !$parent.announceMode()) -->
+						<!-- ko ifnot: (!rising.allowed() || $parent.announceMode()) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.risingCalc($data,$index,'allCombosResults')}"></td>
 						<!--  /ko -->	
-											
+
 						<!-- ko if: (announced.isSet() || ($parent.announceMode() && !announced.announced()) ) -->
 								<td style="background: white", data-bind="text: announced.result"></td>
 						<!--  /ko -->

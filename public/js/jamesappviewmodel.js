@@ -493,16 +493,20 @@ function AppViewModel() {
 	this.rollFiveDice = function(){
 		if (self.rollcounter()>0){ //checks if rolled less than 3 times
 				for (i=0; i<5; i++) {
-				if (self.fiveDice()[i].reroll() === true){
-					var temp = self.rollSingleDice(); //gets a number from function
-							self.fiveDice()[i].face(temp);//assigns that new value to die
-							//pass temp as variable to method ko.observable
-				}
-			};
-		self.scoreCalculated = false;
-		var temproll = self.rollcounter();
-		temproll--;
-		self.rollcounter(temproll);
+					if (self.fiveDice()[i].reroll() === true){
+						var temp = self.rollSingleDice(); //gets a number from function
+								self.fiveDice()[i].face(temp);//assigns that new value to die
+								//pass temp as variable to method ko.observable
+					}
+				};
+			self.scoreCalculated = false;
+			var temproll = self.rollcounter();
+			temproll--;
+			self.rollcounter(temproll);
+			//autofill announced choice if out of re-rolls
+			if (self.announceMode() && temproll === 0) {
+				self.finishAnnounceMode(self.announceClicked);
+			}
 		}
 		else{
 			alert("Tu ne peux plus relancer!\n You can't roll anymore!");
@@ -594,6 +598,7 @@ function AppViewModel() {
 
 	//create announced calcscore
 	this.announceMode = ko.observable(false);
+	this.announceClicked = {};
 
 	this.announcedCalc = function(clicked){	
 		if (self.scoreCalculated)
@@ -604,13 +609,17 @@ function AppViewModel() {
 			if (!self.announceMode()) {
 				self.announceMode(true);
 				clicked.announced.announced(true);
+				self.announceClicked = clicked;
 			} else {
-				//second click
+				self.finishAnnounceMode(self.announceClicked);
+			}
+		}
+	};
+
+	this.finishAnnounceMode = function(clicked){
 				self.announceMode(false);
 				clicked.announced.announced(false);
 				self.calcScore(clicked,"announced");
-			}
-		}
 	};
 
 
