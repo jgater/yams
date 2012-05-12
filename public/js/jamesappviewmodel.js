@@ -166,7 +166,7 @@ function AppViewModel() {
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
-				for (var i=freeDice.length; i>=0; i--){
+				for (i=freeDice.length; i>=0; i--){
 					if (freeDice[i] === freeDice[i-1]){
 						this.result(freeDice[i]*2);
 						break;
@@ -188,7 +188,7 @@ function AppViewModel() {
 				this.result("x");
 				var tempresult = 0;
 				var doubles= 0;
-				for (var i=freeDice.length-1; i>=0; i--){
+				for (i=freeDice.length-1; i>=0; i--){
 					if (doubles<2){
 						if (freeDice[i] === freeDice[i-1]){
 							doubles++;
@@ -357,7 +357,7 @@ function AppViewModel() {
 	this.allCombosResults = [];
 	
 	//populate column arrays
-	for (var i = 0; i<5; i++){
+	for (i = 0; i<5; i++){
 		self.allNumbersResults.push([]);
 		self.allCombosResults.push([]);
 	}
@@ -370,12 +370,12 @@ function AppViewModel() {
 		self.allNumbersResults[4].push(self.allNumbers[i].dry);
 	}
 
-	for (var i in self.allCombos) {
-		self.allCombosResults[0].push(self.allCombos[i].free);
-		self.allCombosResults[1].push(self.allCombos[i].falling);
-		self.allCombosResults[2].push(self.allCombos[i].rising);
-		self.allCombosResults[3].push(self.allCombos[i].announced);
-		self.allCombosResults[4].push(self.allCombos[i].dry);
+	for (var j in self.allCombos) {
+		self.allCombosResults[0].push(self.allCombos[j].free);
+		self.allCombosResults[1].push(self.allCombos[j].falling);
+		self.allCombosResults[2].push(self.allCombos[j].rising);
+		self.allCombosResults[3].push(self.allCombos[j].announced);
+		self.allCombosResults[4].push(self.allCombos[j].dry);
 	}
 
 	// allNumbersResults 0 = free, 1=falling, 2=rising, 3=announced, 4=dry
@@ -498,7 +498,7 @@ function AppViewModel() {
 								self.fiveDice()[i].face(temp);//assigns that new value to die
 								//pass temp as variable to method ko.observable
 					}
-				};
+				}
 			self.scoreCalculated = false;
 			var temproll = self.rollcounter();
 			temproll--;
@@ -669,9 +669,22 @@ function AppViewModel() {
 				// set that we've already clicked a cell this turn
 				self.scoreCalculated = true;
 
+				self.endTurnPrep();
+
+			}	
+			else {
+				alert("Tu as deja choisi cette case. \nYou have already picked that number.");
+			}		
+		}
+		else {
+			alert("Tu as deja choisi une case, relance les des! \nYou need to roll the dice first!");
+		}
+	};
+
+	this.endTurnPrep = function (){
 				// call totals
 				self.calcANRScores();
-				this.allNumbersBonus();
+				self.allNumbersBonus();
 				self.calcACRScores();
 				self.allTotals();
 				self.combinedTotalsCalc();
@@ -680,20 +693,9 @@ function AppViewModel() {
 				//resets toggles
 				for (i=0; i<5;i++){
 					self.fiveDice()[i].reroll(true);
-					self.fiveDice()[i].face(0);
+					//self.fiveDice()[i].face(0);
 				}
-
-			}	
-			else {
-				alert("Tu as deja choisi cette case. \nYou have already picked that number.");
-			}		
-		}
-		else {
-			alert("Tu as deja choisi une case, relance les des! \nYou need to roll the dice first!")
-		}
 	};
-
-
 
 
 	
