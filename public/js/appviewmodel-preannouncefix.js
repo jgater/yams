@@ -13,7 +13,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(true)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
@@ -37,7 +37,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable("")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
@@ -61,7 +61,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
@@ -85,7 +85,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
@@ -109,7 +109,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
@@ -133,7 +133,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var numberofdice = 0;
@@ -161,12 +161,12 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
-				for (i=freeDice.length; i>=0; i--){
+				for (var i=freeDice.length; i>=0; i--){
 					if (freeDice[i] === freeDice[i-1]){
 						this.result(freeDice[i]*2);
 						break;
@@ -181,14 +181,14 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
 				this.result("x");
 				var tempresult = 0;
 				var doubles= 0;
-				for (i=freeDice.length-1; i>=0; i--){
+				for (var i=freeDice.length-1; i>=0; i--){
 					if (doubles<2){
 						if (freeDice[i] === freeDice[i-1]){
 							doubles++;
@@ -212,7 +212,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
@@ -232,7 +232,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
@@ -253,7 +253,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: 
 			function(){
@@ -275,7 +275,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
@@ -296,7 +296,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(otherScore){
 				var freeDice = self.sortedDice();
@@ -317,8 +317,8 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
-			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
+			dry: {isSet:ko.observable(false), result:ko.observable(" "), otherValue: 0, otherSet: ko.observable(false)},
 			rules: function(otherScore){
 				var freeDice = self.sortedDice();
 				var tempScore = 0;
@@ -338,7 +338,7 @@ function AppViewModel() {
 			free: {isSet:ko.observable(false),result:ko.observable(" ")},
 			falling: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(false)},
 			rising: {isSet:ko.observable(false), result:ko.observable(" "), allowed: ko.observable(true)},
-			announced: {isSet:ko.observable(false), result:ko.observable(" "), announced: ko.observable(false)},
+			announced: {isSet:ko.observable(false), result:ko.observable(" ")},
 			dry: {isSet:ko.observable(false), result:ko.observable(" ")},
 			rules: function(){
 				var freeDice = self.sortedDice();
@@ -357,7 +357,7 @@ function AppViewModel() {
 	this.allCombosResults = [];
 	
 	//populate column arrays
-	for (i = 0; i<5; i++){
+	for (var i = 0; i<5; i++){
 		self.allNumbersResults.push([]);
 		self.allCombosResults.push([]);
 	}
@@ -370,12 +370,12 @@ function AppViewModel() {
 		self.allNumbersResults[4].push(self.allNumbers[i].dry);
 	}
 
-	for (var j in self.allCombos) {
-		self.allCombosResults[0].push(self.allCombos[j].free);
-		self.allCombosResults[1].push(self.allCombos[j].falling);
-		self.allCombosResults[2].push(self.allCombos[j].rising);
-		self.allCombosResults[3].push(self.allCombos[j].announced);
-		self.allCombosResults[4].push(self.allCombos[j].dry);
+	for (var i in self.allCombos) {
+		self.allCombosResults[0].push(self.allCombos[i].free);
+		self.allCombosResults[1].push(self.allCombos[i].falling);
+		self.allCombosResults[2].push(self.allCombos[i].rising);
+		self.allCombosResults[3].push(self.allCombos[i].announced);
+		self.allCombosResults[4].push(self.allCombos[i].dry);
 	}
 
 	// allNumbersResults 0 = free, 1=falling, 2=rising, 3=announced, 4=dry
@@ -493,20 +493,16 @@ function AppViewModel() {
 	this.rollFiveDice = function(){
 		if (self.rollcounter()>0){ //checks if rolled less than 3 times
 				for (i=0; i<5; i++) {
-					if (self.fiveDice()[i].reroll() === true){
-						var temp = self.rollSingleDice(); //gets a number from function
-								self.fiveDice()[i].face(temp);//assigns that new value to die
-								//pass temp as variable to method ko.observable
-					}
+				if (self.fiveDice()[i].reroll() === true){
+					var temp = self.rollSingleDice(); //gets a number from function
+							self.fiveDice()[i].face(temp);//assigns that new value to die
+							//pass temp as variable to method ko.observable
 				}
-			self.scoreCalculated = false;
-			var temproll = self.rollcounter();
-			temproll--;
-			self.rollcounter(temproll);
-			//autofill announced choice if out of re-rolls
-			if (self.announceMode() && temproll === 0) {
-				self.finishAnnounceMode(self.announceClicked);
-			}
+			};
+		self.scoreCalculated = false;
+		var temproll = self.rollcounter();
+		temproll--;
+		self.rollcounter(temproll);
 		}
 		else{
 			alert("Tu ne peux plus relancer!\n You can't roll anymore!");
@@ -570,7 +566,7 @@ function AppViewModel() {
 				}
 			// if not on the allowed falling object
 			} else {
-				alert("Tu ne peux pas encore faire ca! \nYou need to roll the dice first!");
+				alert("Tu ne peux pas encore faire ca! \nOi, can't do that!");
 			}		
 	};
 
@@ -597,29 +593,13 @@ function AppViewModel() {
 	};
 
 	//create announced calcscore
-	this.announceMode = ko.observable(false);
-	this.announceClicked = {};
-
-	this.announcedCalc = function(clicked){	
-		if (self.scoreCalculated)
-		{
-			alert("You need to roll the dice first!");
-		} else {
-			//first click
-			if (!self.announceMode()) {
-				self.announceMode(true);
-				clicked.announced.announced(true);
-				self.announceClicked = clicked;
-			} else {
-				self.finishAnnounceMode(self.announceClicked);
-			}
+	this.announcedCalc = function(clicked){		
+		if (self.rollcounter()===2){
+			self.calcScore(clicked,"announced");
 		}
-	};
-
-	this.finishAnnounceMode = function(clicked){
-				self.announceMode(false);
-				clicked.announced.announced(false);
-				self.calcScore(clicked,"announced");
+		else{
+			alert("You can't put your result here.");
+		}
 	};
 
 
@@ -669,22 +649,9 @@ function AppViewModel() {
 				// set that we've already clicked a cell this turn
 				self.scoreCalculated = true;
 
-				self.endTurnPrep();
-
-			}	
-			else {
-				alert("Tu as deja choisi cette case. \nYou have already picked that number.");
-			}		
-		}
-		else {
-			alert("Tu as deja choisi une case, relance les des! \nYou need to roll the dice first!");
-		}
-	};
-
-	this.endTurnPrep = function (){
 				// call totals
 				self.calcANRScores();
-				self.allNumbersBonus();
+				this.allNumbersBonus();
 				self.calcACRScores();
 				self.allTotals();
 				self.combinedTotalsCalc();
@@ -693,9 +660,19 @@ function AppViewModel() {
 				//resets toggles
 				for (i=0; i<5;i++){
 					self.fiveDice()[i].reroll(true);
-					//self.fiveDice()[i].face(0);
 				}
+
+			}	
+			else {
+				alert("Tu as deja choisi cette case. \nYou have already picked that number.");
+			}		
+		}
+		else {
+			alert("Tu as deja choisi une case, relance les des! \nYou've already picked a spot, roll the dice again!")
+		}
 	};
+
+
 
 
 	
