@@ -477,7 +477,7 @@ function AppViewModel() {
 					if (self.fiveDice()[i].reroll() === true){
 						var temp = self.rollSingleDice(); //gets a number from function
 								self.fiveDice()[i].face(temp);//assigns that new value to die
-								//pass temp as variable to method ko.observable
+								//pass temp as variable to method ko.observable								
 					}
 				}
 			self.scoreCalculated = false;
@@ -520,14 +520,13 @@ function AppViewModel() {
 		return freeDice.sort();
 	};
 
-	//stops clicking on several numbers at one rollDice
+	//stops clicking on several numbers at one rollDice, set true at launch to prevent clicks before first roll
 	this.scoreCalculated = true;
 	
 	// create free calcscore
 	this.freeCalc = function(clicked,index){ 
 		self.calcScore(clicked,"free");
 	};
-
 
 	//create falling calcscore  
 	this.fallingCalc = function(clicked, index, group){	// clicked object; index (position in array of column)
@@ -650,7 +649,9 @@ function AppViewModel() {
 				// set that we've already clicked a cell this turn
 				self.scoreCalculated = true;
 
-				self.endTurnPrep();
+				// prep for undo/end turn
+				self.wasClicked(clicked);
+				self.wasClickedColumn = column;
 
 			}	
 			else {
@@ -662,14 +663,39 @@ function AppViewModel() {
 		}
 	};
 
-	this.endTurnPrep = function (){
-				// resets roll totals
-				self.rollcounter(3); 
-				//resets toggles
-				for (i=0; i<5;i++){
-					self.fiveDice()[i].reroll(true);
-					//self.fiveDice()[i].face(0);
-				}
+	this.wasClicked = ko.observable(null);
+	this.wasClickedColumn = null;
+	
+	this.canRoll = ko.computed(function(){
+		if ( self.rollcounter()!=0 && self.wasClicked()==null ) return true;
+
+	});
+
+	this.undo = function() {
+		//reset clicked result
+		self.wasClicked()[self.wasClickedColumn].result(" ");
+		self.wasClicked()[self.wasClickedColumn].isSet(false);
+		//reset clicked pointer
+		self.wasClicked(null);
+		self.wasClickedColumn = null;
+		// allow clicking on a cell
+		self.scoreCalculated = false;
+	};
+
+
+	this.endTurn = function (){
+		//reset clicked pointer
+		self.wasClicked(null);
+		self.wasClickedColumn = null;
+		// allow clicking on a cell
+		self.scoreCalculated = false;
+		// resets roll totals
+		self.rollcounter(3); 
+		//resets toggles
+		for (i=0; i<5;i++){
+			self.fiveDice()[i].reroll(true);
+			self.fiveDice()[i].face(0);
+		}
 	};
 
 
