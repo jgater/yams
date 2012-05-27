@@ -83,15 +83,15 @@
 
 					<tr class="bold highlight">
 						<td>Sub-total (60)</td>
-						<!-- ko foreach: allNbRSubTotal -->
+						<!-- ko foreach: computeANRScores -->
 						<td data-bind="text: $data"></td>
 						<!-- /ko -->
 					</tr>
 					
 					<tr class="bold highlight">
 						<td>Bonus (30)</td>
-						<!-- ko foreach: Bonuses -->
-						<td data-bind = "text:$data"></td>
+						<!-- ko foreach: computeBonuses -->
+						<td data-bind = "text: $data"></td>
 						<!-- /ko -->
 					</tr>
 					
@@ -152,7 +152,7 @@
 					
 					<tr class="bold highlight">
 						<td>Sub-total</td>
-						<!-- ko foreach: allCombosSubTotal -->
+						<!-- ko foreach: computeACRScores -->
 						<td data-bind="text: $data"></td>
 						<!-- /ko -->
 					</tr>
@@ -160,13 +160,13 @@
 					<!-- total column score -->		
 					<tr class="bold highlight">
 						<td>Column Total</td>
-						<!-- ko foreach: allTotalsArray -->
+						<!-- ko foreach: computeAllTotals -->
 						<td data-bind="text: $data"></td>
 						<!-- /ko -->
 					</tr>
 					<tr class="bold lasthighlight">
 						<td>SCORE</td>
-						<td colspan="5" data-bind="text: combinedTotals"></td>
+						<td colspan="5" data-bind="text: computeScore"></td>
 					</tr>
 					
 				</tbody>

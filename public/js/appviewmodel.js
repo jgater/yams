@@ -381,20 +381,15 @@ function AppViewModel() {
 	// allNumbersResults 0 = free, 1=falling, 2=rising, 3=announced, 4=dry
 	// creating function for ALL allNumbersResults
 
-	//CALCULATE NUMBERS SUBTOTAL
-	this.allNbRSubTotal = [];
-	this.allNbRSubTotal[0]=ko.observable(0);
-	this.allNbRSubTotal[1]=ko.observable(0);
-	this.allNbRSubTotal[2]=ko.observable(0);
-	this.allNbRSubTotal[3]=ko.observable(0);
-	this.allNbRSubTotal[4]=ko.observable(0);
-
 	// allNumbersResults [ [{result, isset},{result},{result},{result},{result}], [], [], [], [], [] ];
 	// allNumbersResults[0] = [{result},{},{},{},{}]
 	// allNumbersResults[0][0] = {result: ko.observable()}
 	// allNumbersResults[0][0].result() === an actual usable number
 
-	this.calcANRScores = function(){
+	//calculate number results sub totals
+	this.computeANRScores = ko.computed(function() {
+		var subtotals = [];
+
 		for (var i=0; i<5;i++){
 			var tempScore = 0;
 			for (var j in self.allNumbersResults[i]){
@@ -402,72 +397,58 @@ function AppViewModel() {
 					tempScore += self.allNumbersResults[i][j].result();
 				}
 			}
-			self.allNbRSubTotal[i](tempScore);
+			subtotals[i] = tempScore;
 		}
+		return subtotals;
+	});
 
-	};
-
-	//calculate bonus 
-	this.Bonuses = [];
-	this.Bonuses[0]=ko.observable(0);
-	this.Bonuses[1]=ko.observable(0);
-	this.Bonuses[2]=ko.observable(0);
-	this.Bonuses[3]=ko.observable(0);
-	this.Bonuses[4]=ko.observable(0);
-
-	this.allNumbersBonus = function(){
-		for (var i in self.allNbRSubTotal){
-			if (self.allNbRSubTotal[i]()>=60){
-				this.Bonuses[i](30);
+	//calculate number bonues
+	this.computeBonuses = ko.computed(function() {
+		var bonuses = [];
+		for (var i in self.computeANRScores()){
+			if (self.computeANRScores()[i] >=60 ){
+				bonuses[i] = 30;
 			}
 			else{
-				this.Bonuses[i](0);
+				bonuses[i] = 0;
 			}
 		}
-	};
-	
+		return bonuses;
+	});
 
-	//calculate combos subtotal
-	this.allCombosSubTotal = [];
-	this.allCombosSubTotal[0] = ko.observable(0);
-	this.allCombosSubTotal[1] = ko.observable(0);
-	this.allCombosSubTotal[2] = ko.observable(0);
-	this.allCombosSubTotal[3] = ko.observable(0);
-	this.allCombosSubTotal[4] = ko.observable(0);
+	//calculate combo subscores
+	this.computeACRScores = ko.computed(function() {
+		var subtotals = [];
 
-	this.calcACRScores = function(){
-		for (i=0; i<5;i++){
+		for (var i=0; i<5;i++){
 			var tempScore = 0;
 			for (var j in self.allCombosResults[i]){
-				if (typeof (self.allCombosResults[i][j].result()) === "number"){
-				tempScore += self.allCombosResults[i][j].result();
+				if ( typeof ( self.allCombosResults[i][j].result() ) === "number" ){
+					tempScore += self.allCombosResults[i][j].result();
 				}
 			}
-			self.allCombosSubTotal[i](tempScore);
+			subtotals[i] = tempScore;
 		}
-	};
+		return subtotals;
+	});
 	
-	//totals
-	this.allTotalsArray = [];
-	for (i=0; i<5; i++){
-		this.allTotalsArray[i] = ko.observable(0);
-	}
-
-	this.allTotals = function(){
+	//calculate column totals
+	this.computeAllTotals = ko.computed(function(){
+		var totals = [];
 		for (var i = 0; i<5; i++){
-			self.allTotalsArray[i](self.allNbRSubTotal[i]() + self.Bonuses[i]() + self.allCombosSubTotal[i]());
+			totals[i] = self.computeANRScores()[i] + self.computeBonuses()[i] + self.computeACRScores()[i];
 		}
-	};
+		return totals;
+	});
 
-	// calculating combined totals
-	this.combinedTotals = ko.observable(0);
-	this.combinedTotalsCalc = function(){
-		var mytemp = 0;
-		for (var i=0; i<self.allTotalsArray.length;i++){
-			mytemp = mytemp + self.allTotalsArray[i]();
+	// calculate combined total
+	this.computeScore = ko.computed(function(){
+		var myscore = 0;
+		for (var i=0; i<5 ;i++){
+			myscore += self.computeAllTotals()[i];
 		}
-		self.combinedTotals(mytemp);
-	};
+		return myscore;
+	});
 
 	//Rolling the dice once
 	this.rollSingleDice = function(){
@@ -682,12 +663,6 @@ function AppViewModel() {
 	};
 
 	this.endTurnPrep = function (){
-				// call totals
-				self.calcANRScores();
-				self.allNumbersBonus();
-				self.calcACRScores();
-				self.allTotals();
-				self.combinedTotalsCalc();
 				// resets roll totals
 				self.rollcounter(3); 
 				//resets toggles
