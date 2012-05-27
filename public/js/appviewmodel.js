@@ -597,7 +597,6 @@ function AppViewModel() {
 	};
 
 	this.finishAnnounceMode = function(clicked){
-				self.announceMode(false);
 				clicked.announced.announced(false);
 				self.calcScore(clicked,"announced");
 	};
@@ -667,19 +666,38 @@ function AppViewModel() {
 	this.wasClickedColumn = null;
 	
 	this.canRoll = ko.computed(function(){
-		if ( self.rollcounter()!=0 && self.wasClicked()==null ) return true;
+		if (self.announceMode() && self.rollcounter() > 0) return true;
+		else if ( self.wasClicked()==null && self.rollcounter() > 0 ) return true;
+		else return false;
+	});
 
+	this.canUndo = ko.computed(function(){
+		if (self.announceMode() && self.rollcounter() == 2 ) return true;
+		else if (self.wasClicked() && !self.announceMode()) return true;
+		else return false;
+	});
+
+	this.canEndTurn = ko.computed(function(){
+		return self.wasClicked();
 	});
 
 	this.undo = function() {
-		//reset clicked result
-		self.wasClicked()[self.wasClickedColumn].result(" ");
-		self.wasClicked()[self.wasClickedColumn].isSet(false);
-		//reset clicked pointer
-		self.wasClicked(null);
-		self.wasClickedColumn = null;
+		if (self.announceMode()) {
+			// undo announce mode
+			self.announceMode(false);
+			self.announceClicked.announced.announced(false);
+		} else {
+			//reset clicked result
+			self.wasClicked()[self.wasClickedColumn].result(" ");
+			self.wasClicked()[self.wasClickedColumn].isSet(false);
+			//reset clicked pointer
+			self.wasClicked(null);
+			self.wasClickedColumn = null;
+		}
 		// allow clicking on a cell
 		self.scoreCalculated = false;
+
+		// TODO need to undo rising/falling also
 	};
 
 
@@ -689,6 +707,7 @@ function AppViewModel() {
 		self.wasClickedColumn = null;
 		// allow clicking on a cell
 		self.scoreCalculated = false;
+		self.announceMode(false);
 		// resets roll totals
 		self.rollcounter(3); 
 		//resets toggles

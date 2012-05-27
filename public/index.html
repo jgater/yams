@@ -189,8 +189,8 @@
 				</tbody>
 			</table>
 			<button class="btn btn-primary btn-large" data-bind="click: rollFiveDice, text:rollbuttontext, visible: canRoll"></button>
-			<button class="btn btn-warning btn-large" data-bind="click: undo, visible: wasClicked">Undo</button>
-			<button class="btn btn-primary btn-large" data-bind="click: endTurn, visible: wasClicked">End Turn</button>
+			<button class="btn btn-danger btn-large" data-bind="click: undo, visible: canUndo">Undo</button>
+			<button class="btn btn-success btn-large" data-bind="click: endTurn, visible: canEndTurn">End Turn</button>
 		</div> <! -- end column -->
 
 
