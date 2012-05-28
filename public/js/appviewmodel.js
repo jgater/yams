@@ -533,21 +533,10 @@ function AppViewModel() {
 		// if clicked object.falling property allowed is true
 			if (!self.scoreCalculated && clicked.falling.allowed()) {
 				// pass object to score function
+				self.wasClickedIndex = index();
+				self.wasClickedGroup = group;
+				//calc score
 				self.calcScore(clicked,"falling");
-				// if score function accepted object and set result
-				if (self.scoreCalculated) {
-					// if we're the last entry in allNumbersResults, change the first object in allCombosResults
-					if (group === "allNumbersResults" && index() === 5){
-						self.allCombosResults[1][0].allowed(true);
-					} else if (group === "allCombosResults" && index() === 8) {
-						// do nothing as we're at the Yam!
-					} else {
-					// change next object in group column to allowed (can click next cell in column)
-						self[group][1][index()+1].allowed(true);	
-					}
-					// change the clicked object allowed to false, as it's been set			
-					clicked.falling.allowed(false);
-				}
 			// if not on the allowed falling object
 			} else {
 				alert("Tu ne peux pas encore faire ca! \nYou need to roll the dice first!");
@@ -557,18 +546,10 @@ function AppViewModel() {
 	//create rising calcscore
 	this.risingCalc = function(clicked, index, group){	
 		if (!self.scoreCalculated && clicked.rising.allowed()){ //if you can click
-			self.calcScore(clicked,"rising");	//parse to calc function
-			if (self.scoreCalculated){ // if calc function passed
-				if (group==="allCombosResults" && index() === 0){//if we're the last in comboresults
-					self.allNumbersResults[2][5].allowed(true);//allow all?Numbers results to start
-				}
-				else if (group === "allNumbersResults" && index() === 0){ //if the whole column is done, do nothing
-				}
-				else { //otherwise, change next object in group column to be allowed
-					self[group][2][index()-1].allowed(true);	
-				}//change clicked object to false, because set
-				clicked.rising.allowed(false);
-			}
+			self.wasClickedIndex = index();
+			self.wasClickedGroup = group;
+			// calc score
+			self.calcScore(clicked,"rising");	
 		}
 		else{
 			alert("Tu ne peux pas encore faire ca! \nYou can't do that");
@@ -664,9 +645,11 @@ function AppViewModel() {
 
 	this.wasClicked = ko.observable(null);
 	this.wasClickedColumn = null;
+	this.wasClickedIndex = null;
+	this.wasClickedGroup = null;
 	
 	this.canRoll = ko.computed(function(){
-		if (self.announceMode() && self.rollcounter() > 0) return true;
+		if (self.announceMode() && self.rollcounter() > 0 && !self.canEndTurn()) return true;
 		else if ( self.wasClicked()==null && self.rollcounter() > 0 ) return true;
 		else return false;
 	});
@@ -696,12 +679,38 @@ function AppViewModel() {
 		}
 		// allow clicking on a cell
 		self.scoreCalculated = false;
-
-		// TODO need to undo rising/falling also
 	};
 
 
 	this.endTurn = function (){
+				
+				if (self.wasClickedColumn==="falling") {
+					// if we're the last entry in allNumbersResults, change the first object in allCombosResults
+					if (self.wasClickedGroup === "allNumbersResults" && self.wasClickedIndex === 5){
+						self.allCombosResults[1][0].allowed(true);
+					} else if (self.wasClickedGroup === "allCombosResults" && self.wasClickedIndex === 8) {
+						// do nothing as we're at the Yam!
+					} else {
+					// change next object in group column to allowed (can click next cell in column)
+						self[self.wasClickedGroup][1][self.wasClickedIndex+1].allowed(true);	
+					}
+					// change the clicked object allowed to false, as it's been set			
+					self.wasClicked().falling.allowed(false);
+				}
+
+			if (self.wasClickedColumn==="rising"){ 
+				if (self.wasClickedGroup==="allCombosResults" && self.wasClickedIndex === 0){//if we're the last in comboresults
+					self.allNumbersResults[2][5].allowed(true);//allow allNumbers results to start
+				}
+				else if (self.wasClickedGroup === "allNumbersResults" && self.wasClickedIndex === 0){ //if the whole column is done, do nothing
+				}
+				else { //otherwise, change next object in group column to be allowed
+					self[self.wasClickedGroup][2][self.wasClickedIndex-1].allowed(true);	
+				}
+			// change the clicked object allowed to false, as it's been set			
+			self.wasClicked().rising.allowed(false);
+			}
+
 		//reset clicked pointer
 		self.wasClicked(null);
 		self.wasClickedColumn = null;

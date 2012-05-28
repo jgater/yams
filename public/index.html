@@ -30,24 +30,24 @@
 					<!-- ko foreach: allNumbers -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<!-- ko if: (free.isSet() || $parent.announceMode()) -->
+						<!-- ko if: (free.isSet() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: white", data-bind="text: free.result"></td>
 						<!--  /ko -->
-						<!-- ko ifnot: (free.isSet() || $parent.announceMode()) -->
+						<!-- ko ifnot: (free.isSet() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: #CCFFCC", data-bind="click: $parent.freeCalc"></td>
 						<!--  /ko -->
 
-						<!-- ko if: (!falling.allowed() || $parent.announceMode()) -->
+						<!-- ko if: (!falling.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: white", data-bind="text: falling.result"></td>
 						<!--  /ko -->
-						<!-- ko ifnot: (!falling.allowed() || $parent.announceMode()) -->
+						<!-- ko ifnot: (!falling.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.fallingCalc($data,$index,'allNumbersResults')}"></td>
 						<!--  /ko -->
 
-						<!-- ko if: (!rising.allowed() || $parent.announceMode()) -->
+						<!-- ko if: (!rising.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: white", data-bind="text: rising.result"></td>
 						<!--  /ko -->
-						<!-- ko ifnot: (!rising.allowed() || $parent.announceMode()) -->
+						<!-- ko ifnot: (!rising.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.risingCalc($data,$index,'allNumbersResults')}"></td>
 						<!--  /ko -->
 
@@ -100,24 +100,24 @@
 					<!-- ko foreach: allCombos -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<!-- ko if: (free.isSet() || $parent.announceMode()) -->
+						<!-- ko if: (free.isSet() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: white", data-bind="text: free.result"></td>
 						<!--  /ko -->
-						<!-- ko ifnot: (free.isSet() || $parent.announceMode()) -->
+						<!-- ko ifnot: (free.isSet() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: #CCFFCC", data-bind="click: $parent.freeCalc"></td>
 						<!--  /ko -->
 
-						<!-- ko if: (!falling.allowed() || $parent.announceMode()) -->
+						<!-- ko if: (!falling.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: white", data-bind="text: falling.result"></td>
 						<!--  /ko -->
-						<!-- ko ifnot: (!falling.allowed() || $parent.announceMode()) -->
+						<!-- ko ifnot: (!falling.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.fallingCalc($data,$index,'allCombosResults')}"></td>
 						<!--  /ko -->
 
-						<!-- ko if: (!rising.allowed() || $parent.announceMode()) -->
+						<!-- ko if: (!rising.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: white", data-bind="text: rising.result"></td>
 						<!--  /ko -->
-						<!-- ko ifnot: (!rising.allowed() || $parent.announceMode()) -->
+						<!-- ko ifnot: (!rising.allowed() || $parent.announceMode() || $parent.canEndTurn) -->
 							<td style="background: #CCFFCC", data-bind="click: function() {$parent.risingCalc($data,$index,'allCombosResults')}"></td>
 						<!--  /ko -->	
 
