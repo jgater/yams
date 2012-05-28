@@ -9,17 +9,42 @@ function AppViewModel() {
 
 	// data model for individual cells, as class constructor
 	function cellModel(index,column) {
+		var mycell = this;
 		this.isSet = ko.observable(false);
+		this.isSelected = ko.observable(false);
 		this.isAnnounced = ko.observable(false);
 		this.isAllowed = ko.observable(false);
 		this.result = ko.observable(" ");
 		this.index = index;
 		this.column = column;
-		this.colour = ko.computed(function(){
-			return "white";
-		});
 		this.isClickable = ko.computed(function(){
-			return true;
+			// if another score already calculated, or first turn, or this cell already has a score, ignore click
+			if (self.scoreCalculated() || mycell.isSet() ) return false;
+
+			switch(mycell.column) {
+				case "free":
+					if (self.rollcounter() <= 2 ) return true;
+  				break;
+				case "falling":
+
+  				break;
+  			case "rising":
+
+  				break;
+  			case "announced":
+
+  				break;
+  			case "dry":
+  					if (self.rollcounter() == 2 ) return true;
+  				break;
+  			default:
+  				break;
+			}
+		});
+		this.colour = ko.computed(function(){
+			if ( mycell.isSelected() ) { return "lightblue"; }
+			else if ( mycell.isClickable() ) { return "#CCFFCC"; }
+			else { return "white"; }
 		});
 	}
 
@@ -321,7 +346,7 @@ function AppViewModel() {
 				};
 	}
 
-	// for display purposes only, we want to link allRows into two arrays - numbers and combos.
+	// for display purposes, we want to link allRows into two arrays - numbers and combos.
 
 	this.allNumbers = [];
 	this.allCombos = [];
@@ -350,14 +375,85 @@ function AppViewModel() {
 		self.allColumns[4][i] = self.allRows[i].dry;
 	}
 
+	//calculate number results sub totals
+	this.computeNumberScores = ko.computed(function() {
+		// allColumns 0 = free, 1=falling, 2=rising, 3=announced, 4=dry
+		var subtotals = [];
+		for (var i=0; i<5;i++){
+			var tempScore = 0;
+			for (var j = 0; j < 6 ; j++){
+				if ( typeof ( self.allColumns[i][j].result() ) === "number" ){
+					tempScore += self.allColumns[i][j].result();
+				}
+			}
+			subtotals[i] = tempScore;
+		}
+		return subtotals;
+	});
+
+	//calculate number bonuses
+	this.computeNumberBonuses = ko.computed(function() {
+		var bonuses = [];
+		for (var i in self.computeNumberScores()){
+			if (self.computeNumberScores()[i] >=60 ){
+				bonuses[i] = 30;
+			}
+			else{
+				bonuses[i] = 0;
+			}
+		}
+		return bonuses;
+	});
+
+	//calculate combo subscores
+	this.computeComboScores = ko.computed(function() {
+		// allColumns 0 = free, 1=falling, 2=rising, 3=announced, 4=dry
+		var subtotals = [];
+		for (var i=0; i<5;i++){
+			var tempScore = 0;
+			for (var j = 6; j < self.numOfRows ; j++){
+				if ( typeof ( self.allColumns[i][j].result() ) === "number" ){
+					tempScore += self.allColumns[i][j].result();
+				}
+			}
+			subtotals[i] = tempScore;
+		}
+		return subtotals;
+	});
+	
+	//calculate column totals
+	this.computeTotals = ko.computed(function(){
+		var totals = [];
+		for (var i = 0; i<5; i++){
+			totals[i] = self.computeNumberScores()[i] + self.computeNumberBonuses()[i] + self.computeComboScores()[i];
+		}
+		return totals;
+	});
+
+	// calculate combined total score
+	this.computeScore = ko.computed(function(){
+		var myscore = 0;
+		for (var i=0; i<5 ;i++){
+			myscore += self.computeTotals()[i];
+		}
+		return myscore;
+	});
+
+
+
 	//creates array with 5 dice objects
 	this.fiveDice = ko.observableArray([
 			new Die("die1"), new Die("die2"), new Die("die3"), new Die("die4"), new Die("die5")
 		]);
 
+
+
+
 	/////////////
 	// OPERATIONS
 	/////////////
+
+
 
 
 	//Rolling the dice once
@@ -409,6 +505,33 @@ function AppViewModel() {
 		}
 		return freeDice.sort();
 	};
+
+
+	// create free calcscore
+	this.freeCalc = function(clicked){ 
+		if (clicked.free.isClickable()) {
+			self.calcScore(clicked,"free");
+		}
+	};
+
+
+	//Applies rules of calculation of score for individual cells
+	this.calcScore = function(clicked,column){
+		// calculate score via the rules for the clicked row
+		clicked.rules();
+		// copy score from temporary row result to individual cell result
+		clicked[column].result(clicked.result());
+		// set score as having been calculated globally
+		self.scoreCalculated(true);
+		// set individual cell as having been selected
+		clicked[column].isSelected(true);
+	};
+
+	this.canRoll = ko.computed(function(){
+		if (self.rollcounter() > 0 ) { return true; }
+		else { return false; }
+	});
+
 
 
 // end of appviewmodel

@@ -30,23 +30,59 @@
 					<!-- ko foreach: allNumbers -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<td style="background: free.colour", data-bind="text: free.result"></td>
-						<td style="background: falling.colour", data-bind="text: falling.result"></td>
-						<td style="background: rising.colour", data-bind="text: rising.result"></td>
-						<td style="background: announced.colour", data-bind="text: announced.result"></td>
-						<td style="background: dry.colour", data-bind="text: dry.result"></td>
+						<td data-bind="text: free.result, click: $parent.freeCalc, style: {background: free.colour}"></td>
+						<td data-bind="text: falling.result, style: {background: falling.colour}"></td>
+						<td data-bind="text: rising.result, style: {background: rising.colour}"></td>
+						<td data-bind="text: announced.result, style: {background: announced.colour}"></td>
+						<td data-bind="text: dry.result, style: {background: dry.colour}"></td>
 					</tr>
 					<!--  /ko -->
+
+					<tr class="bold highlight">
+						<td>Sub-total (60)</td>
+						<!-- ko foreach: computeNumberScores -->
+						<td data-bind="text: $data"></td>
+						<!-- /ko -->
+					</tr>
+
+					<tr class="bold highlight">
+						<td>Bonus (30)</td>
+						<!-- ko foreach: computeNumberBonuses -->
+						<td data-bind = "text: $data"></td>
+						<!-- /ko -->
+					</tr>
+
 					<!-- ko foreach: allCombos -->
 					<tr>
 						<td data-bind="text: name"></td>
-						<td style="background: free.colour", data-bind="text: free.result"></td>
-						<td style="background: falling.colour", data-bind="text: falling.result"></td>
-						<td style="background: rising.colour", data-bind="text: rising.result"></td>
-						<td style="background: announced.colour", data-bind="text: announced.result"></td>
-						<td style="background: dry.colour", data-bind="text: dry.result"></td>
+						<td data-bind="text: free.result, click: $parent.freeCalc, style: {background: free.colour}"></td>
+						<td data-bind="text: falling.result, style: {background: falling.colour}"></td>
+						<td data-bind="text: rising.result, style: {background: rising.colour}"></td>
+						<td data-bind="text: announced.result, style: {background: announced.colour}"></td>
+						<td data-bind="text: dry.result, style: {background: dry.colour}"></td>
 					</tr>
 					<!--  /ko -->
+
+					<tr class="bold highlight">
+						<td>Sub-total</td>
+						<!-- ko foreach: computeComboScores -->
+						<td data-bind="text: $data"></td>
+						<!-- /ko -->
+					</tr>
+				
+					<!-- total column score -->		
+					<tr class="bold highlight">
+						<td>Column Total</td>
+						<!-- ko foreach: computeTotals -->
+						<td data-bind="text: $data"></td>
+						<!-- /ko -->
+					</tr>
+
+					<tr class="bold lasthighlight">
+						<td>SCORE</td>
+						<td colspan="5" data-bind="text: computeScore"></td>
+					</tr>
+
 				</tbody>
 			</table>
 
@@ -66,7 +102,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-primary btn-large" data-bind="text:rollbuttontext, click: rollFiveDice"></button>
+			<button class="btn btn-primary btn-large" data-bind="text:rollbuttontext, click: rollFiveDice, visible: canRoll"></button>
 		</div> <! -- end column -->
 
 
