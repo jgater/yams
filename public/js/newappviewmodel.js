@@ -12,7 +12,6 @@ function AppViewModel() {
 		var mycell = this;
 		this.isSet = ko.observable(false);
 		this.isSelected = ko.observable(false);
-		this.isAnnounced = ko.observable(false);
 		this.isAllowed = ko.observable(false);
 		this.result = ko.observable(" ");
 		this.index = index;
@@ -23,19 +22,25 @@ function AppViewModel() {
 
 			switch(mycell.column) {
 				case "free":
-					if (self.rollcounter() <= 2 ) return true;
+					if (self.announceMode()) {return false;}
+					else if (self.rollcounter() <= 2 ) {return true;}
   				break;
 				case "falling":
-
+					if (self.announceMode()) {return false;}
+					else if (self.rollcounter() <= 2 && mycell.isAllowed()) {return true;}
   				break;
   			case "rising":
-
+  				if (self.announceMode()) {return false;}
+  				else if (self.rollcounter() <= 2 && mycell.isAllowed()) {return true;}
   				break;
   			case "announced":
-
+  				if (self.announceMode() && mycell.isSelected()) {return true;}
+  				else if (self.announceMode() ) {return false;}
+  				else if (self.rollcounter() == 2 ) {return true;}
   				break;
   			case "dry":
-  					if (self.rollcounter() == 2 ) return true;
+  				if (self.announceMode()) {return false;}
+  				if (self.rollcounter() == 2 ) {return true;}
   				break;
   			default:
   				break;
@@ -324,6 +329,9 @@ function AppViewModel() {
 	this.scoreCalculated = ko.observable(false);
 	// Controls the number of times rollFiveDice has been activated
 	this.rollcounter = ko.observable(3);
+	this.wasClicked = null;
+	this.wasClickedColumn = null;
+	this.announceMode = ko.observable(false);
 
 	// allRows contains all the clickable cell objects, with one object per array element; each element object holds all data for a given row of the table.
 	this.allRows = [];
@@ -333,16 +341,16 @@ function AppViewModel() {
 
 	for ( i=0; i < self.numOfRows; i++) {
 		// let's populate each allRows element with an object containing a name, the rules, a temporary results holder, and an object per column with all info relevent to that specific column cell.
-		// cellModel class is: function(index, column)
+		// cellModel class is: function(index,column)
 				this.allRows[i] = {
 					"name": rulesModel[i].name,
-					"result": ko.observable(" "),
 					"rules": rulesModel[i].rules,
-					"free": new cellModel(i, "free"),
-					"falling": new cellModel(i, "falling"),
-					"rising": new cellModel(i, "rising"),
-					"announced": new cellModel(i, "announced"),
-					"dry": new cellModel(i, "dry")
+					"result": ko.observable(" "),
+					"free": new cellModel(i,"free"),
+					"falling": new cellModel(i,"falling"),
+					"rising": new cellModel(i,"rising"),
+					"announced": new cellModel(i,"announced"),
+					"dry": new cellModel(i,"dry")
 				};
 	}
 
@@ -446,6 +454,10 @@ function AppViewModel() {
 			new Die("die1"), new Die("die2"), new Die("die3"), new Die("die4"), new Die("die5")
 		]);
 
+	// sets the initial falling and rising elements 'allowed'
+	self.allColumns[1][0].isAllowed(true);
+	self.allColumns[2][self.numOfRows-1].isAllowed(true);
+
 
 
 
@@ -474,13 +486,13 @@ function AppViewModel() {
 			var temproll = self.rollcounter();
 			temproll--;
 			self.rollcounter(temproll);
-		}
-		else{
-			alert("Tu ne peux plus relancer!\n You can't roll anymore!");
+			if (self.announceMode && temproll == 0 ) {
+				// run out of rolls, so finish announce
+				self.finishAnnounceMode(self.wasClicked);
+			}
 		}
 
 	};
-
 
 	// Choose non-rerollable dices
 	this.toggleReroll = function(clicked){
@@ -514,38 +526,165 @@ function AppViewModel() {
 		}
 	};
 
+	// create falling calcscore
+	this.fallingCalc = function(clicked){ 
+		if (clicked.falling.isClickable()) {
+			self.calcScore(clicked,"falling");
+		}
+	};
+
+	// create rising calcscore
+	this.risingCalc = function(clicked){ 
+		if (clicked.rising.isClickable()) {
+			self.calcScore(clicked,"rising");
+		}
+	};
+
+	// create announced calcscore
+	this.announcedCalc = function(clicked){ 
+		if (clicked.announced.isClickable()) {
+			//first click
+			if (!self.announceMode()) {
+				self.announceMode(true);
+				clicked.announced.isSelected(true);
+				self.wasClicked = clicked;
+			} else {
+				//2nd click
+				self.finishAnnounceMode(self.wasClicked);
+			}
+		}
+	};
+
+		this.finishAnnounceMode = function(clicked){
+				self.calcScore(clicked,"announced");
+	};
+
+	// create dry calcscore
+	this.dryCalc = function(clicked){ 
+		if (clicked.dry.isClickable()) {
+			self.calcScore(clicked,"dry");
+		}
+	};
+
 
 	//Applies rules of calculation of score for individual cells
 	this.calcScore = function(clicked,column){
-		// calculate score via the rules for the clicked row
-		clicked.rules();
+		if (clicked.name === "Big Chance") {
+			var index = clicked[column].index;
+			// big chance, so need to pass result of small chance in same column and check if a real number
+			var smallchance = self.allRows[index-1][column].result();
+			if (typeof smallchance === "number") {
+				clicked.rules(smallchance);	
+			} else {
+				// small chance not set/set with invalid so allow any score
+				clicked.rules(0);	
+			}			
+		} else if (clicked.name === "Small Chance") {
+			// small chance, so need to pass result of big chance in same column and check if a real number
+			var index = clicked[column].index;
+			var bigchance = self.allRows[index+1][column].result();
+			if (typeof bigchance === "number") {
+				clicked.rules(bigchance);	
+			} else {
+				// big chance not set/set with invalid so allow any score
+				clicked.rules(30);	
+			}			
+		} else {
+					// not looking at big chance or small chance so just score by the rules for the clicked row
+					clicked.rules();	
+		}
 		// copy score from temporary row result to individual cell result
 		clicked[column].result(clicked.result());
 		// set score as having been calculated globally
 		self.scoreCalculated(true);
 		// set individual cell as having been selected
 		clicked[column].isSelected(true);
+		self.wasClicked = clicked;
+		self.wasClickedColumn = column;
+
 	};
 
+
 	this.canRoll = ko.computed(function(){
-		if (self.rollcounter() > 0 ) { return true; }
+		if (self.rollcounter() > 0 && !self.scoreCalculated() ) { return true; }
 		else { return false; }
 	});
+
+this.canUndo = ko.computed(function(){
+		if ( self.rollcounter() == 2 && self.announceMode() ) { return true; }
+		else if ( self.scoreCalculated() && !self.announceMode() ) { return true; }
+		else { return false; }
+	});
+
+	this.canEndTurn = ko.computed(function(){
+		return self.scoreCalculated();
+	});
+
+	this.undo = function() {
+		if (self.announceMode() ) {
+			self.announceMode(false);
+			self.wasClicked.announced.isSelected(false);
+			self.wasClicked = null;
+		} else {
+			//reset clicked result
+			self.wasClicked[self.wasClickedColumn].result(" ");
+			self.wasClicked[self.wasClickedColumn].isSet(false);
+			self.wasClicked[self.wasClickedColumn].isSelected(false);
+			//reset clicked pointer
+			self.wasClicked = null;
+			self.wasClickedColumn = null;
+			// allow clicking on a cell
+			self.scoreCalculated(false);
+		}
+	};
+
+	this.endTurn = function() {
+		if (self.wasClickedColumn==="falling") {
+				//find out where we are
+				var index = self.wasClicked.falling.index;
+				// remove self from being allowed in the next round
+				self.wasClicked.falling.isAllowed(false);
+					// if we're the last row, do nothing
+				if (index === (self.numOfRows-1)) {
+					// do nothing!
+				} else {
+					self.allColumns[1][index+1].isAllowed(true);
+				}		
+		}
+
+		if (self.wasClickedColumn==="rising") {
+				//find out where we are
+				var index = self.wasClicked.rising.index;
+				// remove self from being allowed in the next round
+				self.wasClicked.rising.isAllowed(false);
+					// if we're the first row, do nothing
+				if (index === 0) {
+					// do nothing!
+				} else {
+					// set next row up to allowed
+					self.allColumns[2][index-1].isAllowed(true);	
+				}		
+		}
+		self.announceMode(false);
+		self.wasClicked[self.wasClickedColumn].isSet(true);
+		self.wasClicked[self.wasClickedColumn].isSelected(false);
+		//reset clicked pointer
+		self.wasClicked = null;
+		self.wasClickedColumn = null;
+		self.scoreCalculated(false);
+				// resets roll totals
+		self.rollcounter(3); 
+		//resets toggles
+		for (i=0; i<5;i++){
+			self.fiveDice()[i].reroll(true);
+			self.fiveDice()[i].face(0);
+		}
+	};
 
 
 
 // end of appviewmodel
 }
-
-
-
-
-
-
-
-
-
-
 
 // Activates knockout.js
 ko.applyBindings(new AppViewModel());

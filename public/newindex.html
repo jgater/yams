@@ -31,10 +31,10 @@
 					<tr>
 						<td data-bind="text: name"></td>
 						<td data-bind="text: free.result, click: $parent.freeCalc, style: {background: free.colour}"></td>
-						<td data-bind="text: falling.result, style: {background: falling.colour}"></td>
-						<td data-bind="text: rising.result, style: {background: rising.colour}"></td>
-						<td data-bind="text: announced.result, style: {background: announced.colour}"></td>
-						<td data-bind="text: dry.result, style: {background: dry.colour}"></td>
+						<td data-bind="text: falling.result, click: $parent.fallingCalc, style: {background: falling.colour}"></td>
+						<td data-bind="text: rising.result, click: $parent.risingCalc, style: {background: rising.colour}"></td>
+						<td data-bind="text: announced.result, click: $parent.announcedCalc, style: {background: announced.colour}"></td>
+						<td data-bind="text: dry.result, click: $parent.dryCalc, style: {background: dry.colour}"></td>
 					</tr>
 					<!--  /ko -->
 
@@ -56,10 +56,10 @@
 					<tr>
 						<td data-bind="text: name"></td>
 						<td data-bind="text: free.result, click: $parent.freeCalc, style: {background: free.colour}"></td>
-						<td data-bind="text: falling.result, style: {background: falling.colour}"></td>
-						<td data-bind="text: rising.result, style: {background: rising.colour}"></td>
-						<td data-bind="text: announced.result, style: {background: announced.colour}"></td>
-						<td data-bind="text: dry.result, style: {background: dry.colour}"></td>
+						<td data-bind="text: falling.result, click: $parent.fallingCalc, style: {background: falling.colour}"></td>
+						<td data-bind="text: rising.result, click: $parent.risingCalc, style: {background: rising.colour}"></td>
+						<td data-bind="text: announced.result, click: $parent.announcedCalc, style: {background: announced.colour}"></td>
+						<td data-bind="text: dry.result, click: $parent.dryCalc, style: {background: dry.colour}"></td>
 					</tr>
 					<!--  /ko -->
 
@@ -103,6 +103,8 @@
 				</tbody>
 			</table>
 			<button class="btn btn-primary btn-large" data-bind="text:rollbuttontext, click: rollFiveDice, visible: canRoll"></button>
+			<button class="btn btn-danger btn-large" data-bind="click: undo, visible: canUndo">Undo</button>
+			<button class="btn btn-success btn-large pull-right" data-bind="click: endTurn, visible: canEndTurn">End Turn</button>
 		</div> <! -- end column -->
 
 
