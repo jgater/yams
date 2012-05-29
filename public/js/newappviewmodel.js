@@ -486,7 +486,7 @@ function AppViewModel() {
 			var temproll = self.rollcounter();
 			temproll--;
 			self.rollcounter(temproll);
-			if (self.announceMode && temproll == 0 ) {
+			if (self.announceMode() && temproll == 0 ) {
 				// run out of rolls, so finish announce
 				self.finishAnnounceMode(self.wasClicked);
 			}
