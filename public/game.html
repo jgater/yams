@@ -8,6 +8,7 @@
 	<link href="/css/yams.css" rel="stylesheet">
 	<!--scripts-->
 	<script type='text/javascript' src='/js/lib/knockout-2.1.0.js'></script>
+	<script type='text/javascript' src='/js/lib/alice-min.js'></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -98,7 +99,7 @@
 				</thead>
 				<tbody>
 					<tr data-bind="foreach: fiveDice">
-						<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' }, click:$parent.toggleReroll, style:{background: reroll() === false ? '#FFFF99' : 'white'}"/></td>	
+						<td><img height="70px" width="70px"  data-bind="attr: { src: '/img/'+face()+'.png' , id: name }, click:$parent.toggleReroll, style:{background: reroll() === false ? '#FFFF99' : 'white'}"/></td>	
 					</tr>
 				</tbody>
 			</table>

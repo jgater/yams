@@ -465,8 +465,14 @@ function AppViewModel() {
 	// OPERATIONS
 	/////////////
 
+	// make dice dance!
+	this.alice = alice.init();
 
-
+	// roll animation
+	this.aliceRoll = function(name) {	
+ 		var die = document.getElementById(name);
+		self.alice.toss(die, "left", 0, "center", "450ms", "ease", "0ms", "once");
+	};
 
 	//Rolling the dice once
 	this.rollSingleDice = function(){
@@ -480,7 +486,10 @@ function AppViewModel() {
 					if (self.fiveDice()[i].reroll() === true){
 						var temp = self.rollSingleDice(); //gets a number from function
 						//pass temp as variable to method ko.observable			
-						self.fiveDice()[i].face(temp);//assigns that new value to die									
+						self.fiveDice()[i].face(temp);//assigns that new value to die
+						//do graphic animation
+						var diename = self.fiveDice()[i].name;
+						self.aliceRoll(diename);									
 					}
 				}				
 			var temproll = self.rollcounter();
