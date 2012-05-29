@@ -17,7 +17,7 @@ function AppViewModel() {
 		this.index = index;
 		this.column = column;
 		this.isClickable = ko.computed(function(){
-			// if another score already calculated, or first turn, or this cell already has a score, ignore click
+			// if another score already calculated, or this cell already has a score, ignore click
 			if (self.scoreCalculated() || mycell.isSet() ) return false;
 
 			switch(mycell.column) {
@@ -555,8 +555,8 @@ function AppViewModel() {
 		}
 	};
 
-		this.finishAnnounceMode = function(clicked){
-				self.calcScore(clicked,"announced");
+	this.finishAnnounceMode = function(clicked){
+		self.calcScore(clicked,"announced");
 	};
 
 	// create dry calcscore
