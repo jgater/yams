@@ -448,6 +448,17 @@ function AppViewModel() {
 	});
 
 
+	this.safetyCheck = ko.computed(function(){
+		var allFilled;
+		for (var i=0; i<3; i++){
+			for (var j in self.allColumns[i]) {
+				allFilled = self.allColumns[i][j].isSet();
+				if (!allFilled) return false;
+			}
+		}
+		return allFilled;
+	});
+
 
 	//creates array with 5 dice objects
 	this.fiveDice = ko.observableArray([
@@ -481,26 +492,30 @@ function AppViewModel() {
 	
 	//gives a face value to all dice
 	this.rollFiveDice = function(){
-		if (self.rollcounter() > 0){ //checks if rolled less than 3 times
-				for (i=0; i<self.numOfDice; i++) {
-					if (self.fiveDice()[i].reroll() === true){
-						var temp = self.rollSingleDice(); //gets a number from function
-						//pass temp as variable to method ko.observable			
-						self.fiveDice()[i].face(temp);//assigns that new value to die
-						//do graphic animation
-						var diename = self.fiveDice()[i].name;
-						self.aliceRoll(diename);									
-					}
-				}				
-			var temproll = self.rollcounter();
-			temproll--;
-			self.rollcounter(temproll);
-			if (self.announceMode() && temproll == 0 ) {
-				// run out of rolls, so finish announce
-				self.finishAnnounceMode(self.wasClicked);
+		if (self.safetyCheck() && !self.announceMode() && self.rollcounter() == 2) {
+			alert("You must select a Dry or Announce!");
+			return;
+		}	
+			if (self.rollcounter() > 0){ //checks if rolled less than 3 times
+					for (i=0; i<self.numOfDice; i++) {
+						if (self.fiveDice()[i].reroll() === true){
+							var temp = self.rollSingleDice(); //gets a number from function
+							//pass temp as variable to method ko.observable			
+							self.fiveDice()[i].face(temp);//assigns that new value to die
+							//do graphic animation
+							var diename = self.fiveDice()[i].name;
+							self.aliceRoll(diename);									
+						}
+					}				
+				var temproll = self.rollcounter();
+				temproll--;
+				self.rollcounter(temproll);
+				if (self.announceMode() && temproll == 0 ) {
+					// run out of rolls, so finish announce
+					self.finishAnnounceMode(self.wasClicked);
+				}
 			}
-		}
-
+	
 	};
 
 	// Choose non-rerollable dices
